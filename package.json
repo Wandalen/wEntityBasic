@@ -1,0 +1,34 @@
+
+{
+  "name": "wentityfundamentals",
+  "version": "0.3.0",
+  "description": "Collection of routines for processing heterogenous data.",
+  "author": "Kostiantyn Wandalen <wanalen@willbe.so>",
+  "license": "MIT",
+  "main": "proto/dwtools/abase/l3/Entity.s",
+  "files": [
+    "proto/dwtools/abase/l3",
+    "proto/dwtools/Tools.s",
+    "production"
+  ],
+  "scripts": {
+    "test": "wtest proto",
+    "docgen": "wdocgen proto"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wandalen/wEntityFundamentals.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Wandalen/wEntityFundamentals/issues"
+  },
+  "dependencies": {
+    "wTools": ""
+  },
+  "devDependencies": {
+    "wTesting": ""
+  },
+  "keywords": [
+    "wTools"
+  ]
+}
