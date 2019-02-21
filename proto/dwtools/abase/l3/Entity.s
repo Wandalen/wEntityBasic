@@ -11,6 +11,13 @@
  * @file l3/Entity.s.
  */
 
+if( typeof module !== 'undefined' )
+{
+
+  let _ = require( '../../Tools.s' );
+
+}
+
 let _global = _global_;
 let _ = _global_.wTools;
 let Self = _global_.wTools;
@@ -59,7 +66,23 @@ function eachInRange( o )
   if( o.onBegin )
   o.onBegin.call( o );
 
-  /* exec */
+  if( len )
+  exec();
+
+  /* end */
+
+  if( value > range[ 1 ] )
+  if( o.onEnd )
+  o.onEnd.call( o, o.result );
+
+  /* return */
+
+  if( o.result )
+  return o.result;
+  else
+  return o.resultIndex;
+
+  /* */
 
   function exec()
   {
@@ -78,21 +101,6 @@ function eachInRange( o )
 
   }
 
-  if( len )
-  exec();
-
-  /* end */
-
-  if( value > range[ 1 ] )
-  if( o.onEnd )
-  o.onEnd.call( o, o.result );
-
-  /* return */
-
-  if( o.result )
-  return o.result;
-  else
-  return o.resultIndex;
 }
 
 eachInRange.defaults =

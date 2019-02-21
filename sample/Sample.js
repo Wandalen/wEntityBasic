@@ -3,6 +3,5 @@ let _ = require( '..' );
 
 /**/
 
-debugger;
-let r = _.eachInRange({ range : [ 3,5 ] });
+let r = _.eachInRange({ range : [ 3, 10 ] });
 console.log( r );
