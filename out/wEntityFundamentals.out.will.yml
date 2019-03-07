@@ -2,7 +2,7 @@ format: willfile-1.0.0
 about:
   name: wEntityFundamentals
   description: Collection of routines for processing heterogenous data.
-  version: 0.3.0
+  version: 0.3.2
   enabled: 1
   interpreters:
     - nodejs >= 6.0.0
@@ -16,7 +16,7 @@ execution:
     docgen: wdocgen staging
 path:
   in:
-    path: .
+    path: ..
   temp:
     path: out
   out:
@@ -70,7 +70,7 @@ reflector:
   reflect.proto.:
     src:
       filePath:
-        proto: out/release
+        .: .
       maskAll:
         excludeAny:
           - !<tag:yaml.org,2002:js/regexp> /(\W|^)node_modules(\W|$)/
@@ -83,7 +83,9 @@ reflector:
           - !<tag:yaml.org,2002:js/regexp> /\.debug($|\.|\/)/i
           - !<tag:yaml.org,2002:js/regexp> /\.test($|\.|\/)/i
           - !<tag:yaml.org,2002:js/regexp> /\.experiment($|\.|\/)/i
-      prefixPath: .
+      prefixPath: proto
+    dst:
+      prefixPath: out/release
     criterion:
       debug: 0
     inherit:
@@ -91,7 +93,7 @@ reflector:
   reflect.proto.debug:
     src:
       filePath:
-        proto: out/debug
+        .: .
       maskAll:
         excludeAny:
           - !<tag:yaml.org,2002:js/regexp> /(\W|^)node_modules(\W|$)/
@@ -102,7 +104,9 @@ reflector:
           - !<tag:yaml.org,2002:js/regexp> /\.DS_Store$/
           - !<tag:yaml.org,2002:js/regexp> /(^|\/)-/
           - !<tag:yaml.org,2002:js/regexp> /\.release($|\.|\/)/i
-      prefixPath: .
+      prefixPath: proto
+    dst:
+      prefixPath: out/debug
     criterion:
       debug: 1
     inherit:
@@ -119,7 +123,6 @@ reflector:
           - !<tag:yaml.org,2002:js/regexp> /\.DS_Store$/
           - !<tag:yaml.org,2002:js/regexp> /(^|\/)-/
           - !<tag:yaml.org,2002:js/regexp> /\.release($|\.|\/)/i
-      prefixPath: .
     criterion:
       debug: 1
     inherit:
@@ -127,8 +130,8 @@ reflector:
   exported.proto.export:
     src:
       filePath:
-        proto: true
-      prefixPath: .
+        .: true
+      prefixPath: proto
     criterion:
       default: 1
       debug: 1
@@ -281,7 +284,7 @@ build:
       - 'step::export.proto'
 exported:
   proto.export:
-    version: 0.3.0
+    version: 0.3.2
     criterion:
       default: 1
       debug: 1
