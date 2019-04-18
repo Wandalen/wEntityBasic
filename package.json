@@ -1,6 +1,6 @@
 {
   "name": "wentityfundamentals",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Collection of routines for processing heterogenous data.",
   "author": "Kostiantyn Wandalen <wanalen@willbe.so>",
   "license": "MIT",
