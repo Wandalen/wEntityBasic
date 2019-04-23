@@ -13,7 +13,7 @@
 
 /**
  * Collection of routines for processing heterogenous data.
- * @namespace wTools(module:EntityFundamentals)
+ * @namespace Tools( module::EntityFundamentals )
  * @memberof module:Tools/base/EntityFundamentals
  */
 
@@ -381,7 +381,7 @@ eachInMultiRange.defaults =
  * _.entityValueWithIndex( { a : 'str', b : 123 }, 2 )
  *
  * @function entityValueWithIndex
- * @memberof module:Tools/base/EntityFundamentals.wTools(module:EntityFundamentals)
+ * @memberof module:Tools/base/EntityFundamentals.Tools( module::EntityFundamentals )
 */
 
 function entityValueWithIndex( src, index )
@@ -435,7 +435,7 @@ function entityValueWithIndex( src, index )
  * _.entityKeyWithValue( { a : 'str', b : 123 }, 123 )
  *
  * @function entityKeyWithValue
- * @memberof module:Tools/base/EntityFundamentals.wTools(module:EntityFundamentals)
+ * @memberof module:Tools/base/EntityFundamentals.Tools( module::EntityFundamentals )
 */
 
 function entityKeyWithValue( src, value )
@@ -510,7 +510,7 @@ function entityVals( src )
  * @function entityCoerceTo
  * @throws {exception} If only one or no arguments provided.
  * @throws {exception} If type of( ins ) is not supported.
- * @memberof module:Tools/base/EntityFundamentals.wTools(module:EntityFundamentals)
+ * @memberof module:Tools/base/EntityFundamentals.Tools( module::EntityFundamentals )
  *
  */
 
@@ -579,7 +579,7 @@ function entityFreeze( src )
  *
  * @function entityHasNan
  * @throws {exception} If no argument provided.
- * @memberof module:Tools/base/EntityFundamentals.wTools(module:EntityFundamentals)
+ * @memberof module:Tools/base/EntityFundamentals.Tools( module::EntityFundamentals )
  *
  */
 
@@ -635,7 +635,7 @@ function entityHasNan( src )
  *
  * @function entityHasUndef
  * @throws {exception} If no argument provided.
- * @memberof module:Tools/base/EntityFundamentals.wTools(module:EntityFundamentals)
+ * @memberof module:Tools/base/EntityFundamentals.Tools( module::EntityFundamentals )
  *
  */
 
