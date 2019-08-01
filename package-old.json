@@ -1,6 +1,6 @@
 {
   "name": "wentityfundamentals",
-  "version": "0.3.16",
+  "version": "0.3.18",
   "description": "Collection of routines for processing heterogenous data.",
   "author": "Kostiantyn Wandalen <wanalen@willbe.so>",
   "license": "MIT",
@@ -11,7 +11,7 @@
     "production"
   ],
   "scripts": {
-    "test": "wtest proto",
+    "test": "wtest .run proto/**",
     "docgen": "wdocgen proto"
   },
   "repository": {
