@@ -1,5 +1,5 @@
 {
-  "name": "wentityfundamentals",
+  "name": "wentitybasic",
   "version": "0.3.18",
   "description": "Collection of routines for processing heterogenous data.",
   "author": "Kostiantyn Wandalen <wanalen@willbe.so>",
@@ -16,10 +16,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Wandalen/wEntityFundamentals.git"
+    "url": "https://github.com/Wandalen/wEntityBasic.git"
   },
   "bugs": {
-    "url": "https://github.com/Wandalen/wEntityFundamentals/issues"
+    "url": "https://github.com/Wandalen/wEntityBasic/issues"
   },
   "dependencies": {
     "wTools": ""

@@ -1,4 +1,4 @@
-( function _Entity_s_() {
+( function _EntityBasic_s_() {
 
 'use strict';
 

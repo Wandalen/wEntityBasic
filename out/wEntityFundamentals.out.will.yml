@@ -1,11 +1,11 @@
 format: willfile-1.0.0
 about:
-  name: wEntityFundamentals
+  name: wEntityBasic
   description: Collection of routines for processing heterogenous data.
   enabled: 1
   version: 0.3.17
   interpreters: &ref_0
-    - nodejs >= 6.0.0
+    - nodejs >= 8.0.0
     - chrome >= 60.0.0
     - firefox >= 60.0.0
   keywords: &ref_1
@@ -14,11 +14,11 @@ path:
   module.willfiles:
     criterion:
       predefined: 1
-    path: wEntityFundamentals.out.will.yml
+    path: wEntityBasic.out.will.yml
   module.common:
     criterion:
       predefined: 1
-    path: wEntityFundamentals.out
+    path: wEntityBasic.out
   module.original.willfiles:
     criterion:
       predefined: 1
@@ -52,9 +52,9 @@ path:
   proto:
     path: ../proto
   repository:
-    path: 'git+https://../github.com/Wandalen/wEntityFundamentals.git'
+    path: 'git+https://../github.com/Wandalen/wEntityBasic.git'
   bugs:
-    path: 'https://../github.com/Wandalen/wEntityFundamentals/issues'
+    path: 'https://../github.com/Wandalen/wEntityBasic/issues'
   exported.dir.proto.export:
     criterion:
       default: 1
@@ -287,7 +287,7 @@ exported:
 module:
   ../:
     about:
-      name: wEntityFundamentals
+      name: wEntityBasic
       description: Collection of routines for processing heterogenous data.
       enabled: 1
       version: 0.3.17
@@ -337,9 +337,9 @@ module:
       proto:
         path: ./proto
       repository:
-        path: 'git+https://github.com/Wandalen/wEntityFundamentals.git'
+        path: 'git+https://github.com/Wandalen/wEntityBasic.git'
       bugs:
-        path: 'https://github.com/Wandalen/wEntityFundamentals/issues'
+        path: 'https://github.com/Wandalen/wEntityBasic/issues'
       exported.dir.proto.export:
         criterion:
           default: 1
@@ -569,4 +569,4 @@ module:
           export: 1
           tar: 1
           public: 1
-  wEntityFundamentals.out: root
+  wEntityBasic.out: root
