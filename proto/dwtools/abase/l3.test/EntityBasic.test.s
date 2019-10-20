@@ -9,7 +9,7 @@ if( typeof module !== 'undefined' )
 
   _.include( 'wTesting' );
 
-  require( '../l3/Entity.s' );
+  require( '../l3/EntityBasic.s' );
 
 }
 
@@ -1385,12 +1385,12 @@ function eachInMultiRange( test )
   if( !Config.debug )
   return;
 
-  test.shouldThrowError( () => _.eachInMultiRange([]) );
-  test.shouldThrowError( () => _.eachInMultiRange({ ranges : 0 }) );
-  test.shouldThrowError( () => _.eachInMultiRange({ onEach : 0 }) );
-  test.shouldThrowError( () => _.eachInMultiRange({ someProp : 0 }) );
+  test.shouldThrowErrorOfAnyKind( () => _.eachInMultiRange([]) );
+  test.shouldThrowErrorOfAnyKind( () => _.eachInMultiRange({ ranges : 0 }) );
+  test.shouldThrowErrorOfAnyKind( () => _.eachInMultiRange({ onEach : 0 }) );
+  test.shouldThrowErrorOfAnyKind( () => _.eachInMultiRange({ someProp : 0 }) );
 
-  test.shouldThrowError( () =>
+  test.shouldThrowErrorOfAnyKind( () =>
   {
     _.eachInMultiRange
     ({
@@ -1399,7 +1399,7 @@ function eachInMultiRange( test )
     })
   });
 
-  test.shouldThrowError( () =>
+  test.shouldThrowErrorOfAnyKind( () =>
   {
     _.eachInMultiRange
     ({
@@ -1408,7 +1408,7 @@ function eachInMultiRange( test )
     })
   });
 
-  test.shouldThrowError( () =>
+  test.shouldThrowErrorOfAnyKind( () =>
   {
     _.eachInMultiRange
     ({
@@ -1417,7 +1417,7 @@ function eachInMultiRange( test )
     })
   });
 
-  test.shouldThrowError( () =>
+  test.shouldThrowErrorOfAnyKind( () =>
   {
     _.eachInMultiRange
     ({
@@ -1426,7 +1426,7 @@ function eachInMultiRange( test )
     })
   });
 
-  test.shouldThrowError( () =>
+  test.shouldThrowErrorOfAnyKind( () =>
   {
     _.eachInMultiRange
     ({
@@ -1435,7 +1435,7 @@ function eachInMultiRange( test )
     })
   });
 
-  test.shouldThrowError( () =>
+  test.shouldThrowErrorOfAnyKind( () =>
   {
     var o =
     {
@@ -1448,7 +1448,7 @@ function eachInMultiRange( test )
     _.eachInMultiRange( o );
   });
 
-  test.shouldThrowError( () =>
+  test.shouldThrowErrorOfAnyKind( () =>
   {
     var o =
     {
@@ -1461,7 +1461,7 @@ function eachInMultiRange( test )
     _.eachInMultiRange( o );
   });
 
-  test.shouldThrowError( () =>
+  test.shouldThrowErrorOfAnyKind( () =>
   {
     var o =
     {
@@ -1498,43 +1498,43 @@ function entityValueWithIndex( test )
   return;
 
   test.case = 'no arguments';
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.entityValueWithIndex();
   });
 
   test.case = 'no selector';
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.entityValueWithIndex( [ 1 ] );
   });
 
   test.case = 'bad selector';
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.entityValueWithIndex( [ 0 ],'1' );
   });
 
   test.case = 'bad arguments';
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.entityValueWithIndex( true,0 );
   });
 
   test.case = 'bad arguments';
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.entityValueWithIndex( 1,2 );
   });
 
   test.case = 'bad arguments';
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.entityValueWithIndex( 1,undefined );
   });
 
   test.case = 'redundant arguments';
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.entityValueWithIndex( [ 0 ],0,0 );
   });
@@ -1579,37 +1579,37 @@ function entityKeyWithValue( test )
   return;
 
   test.case = 'no arguments';
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.entityKeyWithValue();
   });
 
   test.case = 'no selector';
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.entityKeyWithValue( [ 1 ] );
   });
 
   test.case = 'bad arguments';
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.entityKeyWithValue( true,0 );
   });
 
   test.case = 'bad arguments';
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.entityKeyWithValue( 1,2 );
   });
 
   test.case = 'bad arguments';
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.entityKeyWithValue( 1,undefined );
   });
 
   test.case = 'redundant arguments';
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.entityKeyWithValue( [ 0 ],0,0 );
   });
@@ -1660,13 +1660,13 @@ function entityCoerceTo( test )
   return;
 
   test.case = 'argument missed';
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.entityCoerceTo( );
   });
 
   test.case = 'unknown type';
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.entityCoerceTo( 1, { a : 1 }  );
   });
@@ -1707,7 +1707,7 @@ function entityHasNan( test )
   return;
 
   test.case = 'argument missed';
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.entityHasNan( );
   });
@@ -1743,7 +1743,7 @@ function entityHasUndef( test )
   return;
 
   test.case = 'argument missed';
-  test.shouldThrowError( function()
+  test.shouldThrowErrorOfAnyKind( function()
   {
     _.entityHasUndef( );
   });
@@ -1755,10 +1755,10 @@ function entityHasUndef( test )
 var Self =
 {
 
-  name : 'Tools/base/l3/Entity',
+  name : 'Tools.base.l3.Entity',
   silencing : 1,
   // verbosity : 4,
-  // importanceOfNegative : 3,
+  // negativity : 3,
 
   tests :
   {

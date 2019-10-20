@@ -62,7 +62,7 @@ function eachInRange( o )
   }
 
   if( o.result === null )
-  o.result = new Float32Array( len );
+  o.result = new F32x( len );
 
   // if( o.batch === 0 )
   // o.batch = o.range[ 1 ] - o.range[ 0 ];
@@ -152,7 +152,7 @@ function eachInManyRanges( o )
   /* exec */
 
   if( o.result === null )
-  o.result = new Float32Array( len );
+  o.result = new F32x( len );
 
   let ranges = o.range;
   for( let r = 0 ; r < ranges.length ; r++ )
@@ -223,7 +223,7 @@ function eachInMultiRange( o )
     debugger;
     // ranges = o.ranges.slice();
     // ranges = _.cloneJust( o.ranges ); // xxx
-    // ranges = _.entityShallowClone();
+    // ranges = _.entityMake();
 
     _.assert( _.arrayIs( o.ranges ) );
     ranges = [];
