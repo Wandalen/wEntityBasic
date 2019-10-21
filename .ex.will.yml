@@ -23,7 +23,7 @@ about :
 path :
 
   repository : git+https:///github.com/Wandalen/wEntityBasic.git
-  remotes :
+  origins :
    - git+https:///github.com/Wandalen/wEntityBasic.git
    - npm:///wentitybasic
   bugtracker : https:///github.com/Wandalen/wEntityBasic/issues
