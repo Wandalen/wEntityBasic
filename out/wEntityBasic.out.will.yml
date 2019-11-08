@@ -3,18 +3,19 @@ root:
   - wEntityBasic.out
 consistency:
   wEntityBasic.out.will.yml: &ref_0
-    hash: c0b39d0b10398b8873345dcba21320b2
-    size: 37966
+    hash: 14784c2dc495608ae1ae71dc1d4d5b28
+    size: 37995
   ../.ex.will.yml: &ref_1
     hash: 7ce359b6210b9376e55ad8f9563f31d8
     size: 1725
   ../.im.will.yml: &ref_2
-    hash: 240522fc3572aa01d28a73cc267ec6e8
-    size: 4871
+    hash: 77c89d8527892e10ea30f3e3f58dff10
+    size: 4945
 module:
   wEntityBasic.out:
     about:
       name: wEntityBasic
+      org: noorg
       description: Collection of routines for processing heterogenous data.
       enabled: 1
       version: 0.4.0
@@ -60,9 +61,6 @@ module:
       download:
         criterion:
           predefined: 1
-      remote:
-        criterion:
-          predefined: 1
       repository:
         path: 'git+https:///github.com/Wandalen/wEntityBasic.git'
       origins:
@@ -72,15 +70,15 @@ module:
       bugtracker:
         path: 'https:///github.com/Wandalen/wEntityBasic/issues'
       in:
-        criterion:
-          predefined: 0
         path: .
       out:
-        criterion:
-          predefined: 0
         path: .
       temp:
-        path: 'path::out'
+        path:
+          - 'path::out'
+          - ../package-lock.json
+          - ../package.json
+          - ../node_modules
       proto:
         path: ../proto
       export:
@@ -145,11 +143,13 @@ module:
         path: '{path::out.*=}/source/Index.s'
       exported.dir.proto.export:
         criterion:
+          generated: 1
           content: proto
           export: 1
         path: ../proto
       exported.files.proto.export:
         criterion:
+          generated: 1
           content: proto
           export: 1
         path:
@@ -328,6 +328,7 @@ module:
           prefixPath: ../proto
         mandatory: 1
         criterion:
+          generated: 1
           content: proto
           export: 1
       exported.files.proto.export:
@@ -340,6 +341,7 @@ module:
         recursive: 0
         mandatory: 1
         criterion:
+          generated: 1
           content: proto
           export: 1
     step:
@@ -697,6 +699,7 @@ module:
         opts:
           reflector: 'reflector::exported.proto.export*'
         criterion:
+          generated: 1
           content: proto
           export: 1
         inherit:
@@ -705,6 +708,7 @@ module:
         opts:
           reflector: 'reflector::exported.files.proto.export*'
         criterion:
+          generated: 1
           content: proto
           export: 1
         inherit:
@@ -803,6 +807,7 @@ module:
   ../:
     about:
       name: wEntityBasic
+      org: noorg
       description: Collection of routines for processing heterogenous data.
       enabled: 1
       version: 0.4.0
@@ -848,9 +853,6 @@ module:
       download:
         criterion:
           predefined: 1
-      remote:
-        criterion:
-          predefined: 1
       repository:
         path: 'git+https:///github.com/Wandalen/wEntityBasic.git'
       origins:
@@ -860,21 +862,21 @@ module:
       bugtracker:
         path: 'https:///github.com/Wandalen/wEntityBasic/issues'
       in:
-        criterion:
-          predefined: 0
         path: .
       out:
-        criterion:
-          predefined: 0
         path: out
       temp:
-        path: 'path::out'
+        path:
+          - 'path::out'
+          - package-lock.json
+          - package.json
+          - node_modules
       proto:
-        path: ./proto
+        path: proto
       export:
         path: '{path::proto}/**'
       doc:
-        path: ./doc
+        path: doc
       out.raw.debug:
         criterion:
           debug: debug
@@ -1492,6 +1494,6 @@ module:
         hash: 7ce359b6210b9376e55ad8f9563f31d8
         size: 1725
       ../.im.will.yml:
-        hash: 240522fc3572aa01d28a73cc267ec6e8
-        size: 4871
+        hash: 77c89d8527892e10ea30f3e3f58dff10
+        size: 4945
       wEntityBasic.out.will.yml: *ref_0
