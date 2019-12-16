@@ -1,10 +1,10 @@
 {
   "name" : "wentitybasic", 
-  "version" : "0.3.42", 
+  "version" : "0.3.43", 
   "description" : "Collection of routines for processing heterogenous data.", 
   "author" : "Kostiantyn Wandalen <wanalen@willbe.so>", 
   "license" : "MIT", 
-  "main" : "proto/dwtools/abase/l3/EntityBasic.s", 
+  "main" : "proto/dwtools/abase/l2/EntityBasic.s", 
   "files" : [ "proto/dwtools/abase/l3", "proto/dwtools/Tools.s", "out" ], 
   "scripts" : { "test" : "wtest .run proto/**", "docgen" : "wdocgen proto" }, 
   "repository" : 

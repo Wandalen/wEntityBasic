@@ -9,7 +9,7 @@ if( typeof module !== 'undefined' )
 
   _.include( 'wTesting' );
 
-  require( '../l3/EntityBasic.s' );
+  require( '../l2/EntityBasic.s' );
 
 }
 
