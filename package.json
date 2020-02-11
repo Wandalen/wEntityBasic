@@ -1,6 +1,6 @@
 {
   "name" : "wentitybasic", 
-  "version" : "0.3.68", 
+  "version" : "0.3.69", 
   "description" : "Collection of routines for processing heterogenous data.", 
   "author" : "Kostiantyn Wandalen <wanalen@willbe.so>", 
   "license" : "MIT", 
@@ -16,7 +16,7 @@
   {
     "url" : "https://github.com/Wandalen/wEntityBasic/issues"
   }, 
-  "dependencies" : { "wTools" : "beta" }, 
-  "devDependencies" : { "wTesting" : "beta" }, 
+  "dependencies" : { "wTools" : "alpha" }, 
+  "devDependencies" : { "wTesting" : "alpha" }, 
   "keywords" : [ "wTools" ]
 }
