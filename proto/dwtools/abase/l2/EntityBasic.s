@@ -376,7 +376,8 @@ eachInMultiRange.defaults =
  * _.entityValueWithIndex( { a : 'str', b : 123 }, 2 )
  *
  * @function entityValueWithIndex
- * @memberofs "module:Tools/base/EntityFundamentals","module:Tools/base/Fundamental.wTools"
+ * @namespace Tools
+ * @module Tools/base/EntityFundamentals
 */
 
 function entityValueWithIndex( src, index )
@@ -430,7 +431,8 @@ function entityValueWithIndex( src, index )
  * _.entityKeyWithValue( { a : 'str', b : 123 }, 123 )
  *
  * @function entityKeyWithValue
- * @memberofs "module:Tools/base/EntityFundamentals","module:Tools/base/Fundamental.wTools"
+ * @namespace Tools
+ * @module Tools/base/EntityFundamentals
 */
 
 function entityKeyWithValue( src, value )
@@ -505,7 +507,8 @@ function entityVals( src )
  * @function entityCoerceTo
  * @throws {exception} If only one or no arguments provided.
  * @throws {exception} If type of( ins ) is not supported.
- * @memberofs "module:Tools/base/EntityFundamentals","module:Tools/base/Fundamental.wTools"
+ * @namespace Tools
+ * @module Tools/base/EntityFundamentals
  *
  */
 
@@ -574,7 +577,8 @@ function entityFreeze( src )
  *
  * @function entityHasNan
  * @throws {exception} If no argument provided.
- * @memberofs "module:Tools/base/EntityFundamentals","module:Tools/base/Fundamental.wTools"
+ * @namespace Tools
+ * @module Tools/base/EntityFundamentals
  *
  */
 
@@ -630,7 +634,8 @@ function entityHasNan( src )
  *
  * @function entityHasUndef
  * @throws {exception} If no argument provided.
- * @memberofs "module:Tools/base/EntityFundamentals","module:Tools/base/Fundamental.wTools"
+ * @namespace Tools
+ * @module Tools/base/EntityFundamentals
  *
  */
 
