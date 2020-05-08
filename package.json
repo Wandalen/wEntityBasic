@@ -2,7 +2,7 @@
   "name" : "wentitybasic",
   "version" : "0.3.126",
   "description" : "Collection of routines for processing heterogenous data.",
-  "author" : "Kostiantyn Wandalen <wanalen@willbe.so>",
+  "author" : "Kostiantyn Wandalen <wanalen@01.school>",
   "license" : "MIT",
   "main" : "proto/dwtools/abase/l2/EntityBasic.s",
   "files" : [ "proto/dwtools/abase/l3", "proto/dwtools/Tools.s", "out" ],
