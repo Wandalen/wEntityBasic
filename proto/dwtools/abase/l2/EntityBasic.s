@@ -243,7 +243,7 @@ function eachInMultiRange( o ) /* xxx : rename, later */
     }
 
     delta = _.longIs( o.delta ) ? o.delta.slice() : null;
-    _.assert( !delta || ranges.length === delta.length, 'delta must be same length as ranges'  );
+    _.assert( !delta || ranges.length === delta.length, 'delta must be same length as ranges' );
     l = o.ranges.length;
   }
 
@@ -465,7 +465,7 @@ function entityKeyWithValue( src, value )
     let i = 0;
     for( let s in src )
     {
-      if( src[ s ] == value ) return s;
+      if( src[ s ] === value ) return s;
     }
   }
   else if( _.strIs( src ) )
@@ -728,4 +728,4 @@ Object.assign( Self, Fields );
 if( typeof module !== 'undefined' && module !== null )
 module[ 'exports' ] = Self;
 
-})();
+} )( );
