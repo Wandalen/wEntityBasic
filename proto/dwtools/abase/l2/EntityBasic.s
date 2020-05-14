@@ -5,17 +5,22 @@
 /**
  * Collection of routines for processing heterogenous data.
  * @module Tools/base/EntityFundamentals
- * @extends Tools
  */
 
 /**
  * @file l3/Entity.s.
  */
 
+/**
+ * Collection of routines for processing heterogenous data.
+ * @namespace Tools.EntityFundamentals
+ * @memberof module:Tools/base/EntityFundamentals
+ */
+
 if( typeof module !== 'undefined' )
 {
 
-  let _ = require( '../../Tools.s' );
+  let _ = require( '../../../dwtools/Tools.s' );
 
 }
 
@@ -48,7 +53,7 @@ function eachInRange( o )
 
   let increment = o.increment;
   let range = o.range;
-  let len = _.rangeNumberElements( range, o.increment );
+  let len = _.rangeCountElements( range, o.increment );
   let value = range[ 0 ];
 
   if( o.estimate )
@@ -138,7 +143,7 @@ function eachInManyRanges( o )
     let range = o.range[ r ];
     if( _.numberIs( o.range ) )
     range = o.range[ r ] = [ 0, o.range ];
-    len += _.rangeNumberElements( range, o.increment );
+    len += _.rangeCountElements( range, o.increment );
   }
 
   if( o.estimate )
@@ -169,7 +174,17 @@ eachInManyRanges.defaults = Object.create( eachInRange.defaults )
 
 //
 
-function eachInMultiRange( o )
+/* qqq2 : split body and pre */
+/* qqq2 : improve formatting, put all subroutines to the end of the routine */
+/* qqq2 : implement special code for 2, 3 dimensional cases */
+
+/* qqq2 : split
+- _eachInMultiRange
+- whileInMultiRange
+- eachInMultiRange
+*/
+
+function eachInMultiRange( o ) /* xxx : rename, later */
 {
 
   if( !o.onEach )
@@ -215,7 +230,7 @@ function eachInMultiRange( o )
   }
   else
   {
-    debugger;
+    // debugger;
     // ranges = o.ranges.slice();
     // ranges = _.cloneJust( o.ranges ); // xxx
     // ranges = _.entityMake();
@@ -685,7 +700,7 @@ let Routines =
 
   eachInRange,
   eachInManyRanges,
-  eachInMultiRange, /* experimental */
+  eachInMultiRange, /* qqq : light coverage required */
 
   entityValueWithIndex, /* dubious */
   entityKeyWithValue, /* dubious */
