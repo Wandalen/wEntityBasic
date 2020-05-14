@@ -1,5 +1,5 @@
 
-# wEntityBasic [![Build Status](https://travis-ci.org/Wandalen/wEntityBasic.svg?branch=master)](https://travis-ci.org/Wandalen/wEntityBasic) [![Build Status](https://ci.appveyor.com/api/projects/status/github/Wandalen/wentitybasic)](https://ci.appveyor.com/project/Wandalen/wentitybasic)
+# wEntityBasic [![Build Status](https://travis-ci.org/Wandalen/wEntityBasic.svg?branch=master)](https://travis-ci.org/Wandalen/wEntityBasic)
 
 Collection of routines for processing heterogenous data.
 
@@ -8,25 +8,3 @@ Collection of routines for processing heterogenous data.
 npm install
 node sample/Sample.js
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
