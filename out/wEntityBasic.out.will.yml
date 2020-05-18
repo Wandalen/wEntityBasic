@@ -2,10 +2,13 @@ format: outwillfile-2.0
 root:
   - wEntityBasic.out
 consistency:
-  ../.ex.will.yml: &ref_0
+  wEntityBasic.out.will.yml: &ref_0
+    hash: b35f744482f6a42e01a49e3208927c48
+    size: 38755
+  ../.ex.will.yml: &ref_1
     hash: 553ebd7ca52b1d89a2e3ea17d8df843c
     size: 1725
-  ../.im.will.yml: &ref_1
+  ../.im.will.yml: &ref_2
     hash: adcd677bfdfe08540a19f008de1ef352
     size: 4945
 module:
@@ -16,18 +19,18 @@ module:
       description: Collection of routines for processing heterogenous data.
       enabled: 1
       version: 0.4.0
-      interpreters: &ref_2
+      interpreters:
         - njs >= 8.0.0
         - chrome >= 60.0.0
         - firefox >= 60.0.0
-      keywords: &ref_3
+      keywords:
         - wTools
       license: MIT
       author: Kostiantyn Wandalen <wanalen@01.school>
-      contributors: &ref_4
+      contributors:
         - Kostiantyn Wandalen <wanalen@01.school>
       npm.name: wentitybasic
-      npm.scripts: &ref_5
+      npm.scripts:
         test: wtest .run proto/**
         docgen: wdocgen .build proto
     path:
@@ -703,6 +706,24 @@ module:
           content: prime
         inherit:
           - files.transpile
+      exported.proto.export:
+        opts:
+          reflector: 'reflector::exported.proto.export*'
+        criterion:
+          generated: 1
+          content: proto
+          export: 1
+        inherit:
+          - files.reflect
+      exported.files.proto.export:
+        opts:
+          reflector: 'reflector::exported.files.proto.export*'
+        criterion:
+          generated: 1
+          content: proto
+          export: 1
+        inherit:
+          - files.reflect
     build:
       proto.export:
         steps:
@@ -791,8 +812,9 @@ module:
           content: proto
           export: 1
     consistency:
-      ../.ex.will.yml: *ref_0
-      ../.im.will.yml: *ref_1
+      wEntityBasic.out.will.yml: *ref_0
+      ../.ex.will.yml: *ref_1
+      ../.im.will.yml: *ref_2
   ../:
     about:
       name: wEntityBasic
@@ -800,13 +822,20 @@ module:
       description: Collection of routines for processing heterogenous data.
       enabled: 1
       version: 0.4.0
-      interpreters: *ref_2
-      keywords: *ref_3
+      interpreters:
+        - njs >= 8.0.0
+        - chrome >= 60.0.0
+        - firefox >= 60.0.0
+      keywords:
+        - wTools
       license: MIT
       author: Kostiantyn Wandalen <wanalen@01.school>
-      contributors: *ref_4
+      contributors:
+        - Kostiantyn Wandalen <wanalen@01.school>
       npm.name: wentitybasic
-      npm.scripts: *ref_5
+      npm.scripts:
+        test: wtest .run proto/**
+        docgen: wdocgen .build proto
     path:
       module.willfiles:
         criterion:
@@ -1487,3 +1516,6 @@ module:
       ../.im.will.yml:
         hash: adcd677bfdfe08540a19f008de1ef352
         size: 4945
+      wEntityBasic.out.will.yml:
+        hash: b35f744482f6a42e01a49e3208927c48
+        size: 38755
