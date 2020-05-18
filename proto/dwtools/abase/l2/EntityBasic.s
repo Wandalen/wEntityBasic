@@ -654,7 +654,7 @@ whileInMultiRange_.breaking = 1;
 
 //
 
-let eachInRange_ = _.routineFromPreAndBody( eachInMultiRange_pre, eachInMultiRange_body_ );
+let eachInMultiRange_ = _.routineFromPreAndBody( eachInMultiRange_pre, eachInMultiRange_body_ );
 
 //
 
@@ -989,6 +989,9 @@ let Routines =
   eachInRange,
   eachInManyRanges,
   eachInMultiRange, /* qqq : light coverage required */
+
+  eachInMultiRange_,
+  whileInMultiRange_,
 
   entityValueWithIndex, /* dubious */
   entityKeyWithValue, /* dubious */
