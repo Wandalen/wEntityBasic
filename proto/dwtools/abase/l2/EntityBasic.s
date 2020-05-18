@@ -370,6 +370,294 @@ eachInMultiRange.defaults =
 
 //
 
+
+
+function eachInMultiRange_pre( routine, arg ) // ( o )
+{
+
+  let o = arg[ 0 ];
+
+  if( !o.onEach )
+  o.onEach = function( e )
+  {
+    console.log( e );
+  }
+
+  _.routineOptions( routine, o );
+  _.assert( _.objectIs( o ) )
+  _.assert( _.arrayIs( o.ranges ) || _.objectIs( o.ranges ), 'Expects o.ranges as array or object' )
+  _.assert( _.routineIs( o.onEach ), 'Expects o.onEach as routine' )
+  _.assert( !o.delta || _.strType( o.delta ) === _.strType( o.ranges ), 'o.delta must be same type as ranges' );
+
+  o.iterationNumber = 1;
+  let delta = _.objectIs( o.delta ) ? [] : null;
+  let ranges = [];
+  o.names = null;
+
+  /* */
+
+  if( _.objectIs( o.ranges ) )
+  {
+    _.assert( _.objectIs( o.delta ) || !o.delta );
+
+    o.names = [];
+    let i = 0;
+    for( let r in o.ranges )
+    {
+      o.names[ i ] = r;
+      ranges[ i ] = o.ranges[ r ];
+      if( o.delta )
+      {
+        if( !o.delta[ r ] )
+        throw _.err( 'no delta for', r );
+        delta[ i ] = o.delta[ r ];
+      }
+      i += 1;
+    }
+
+  }
+  else
+  {
+
+    _.assert( _.longIs( o.ranges ) );
+    ranges = [];
+    for( let i = 0 ; i < o.ranges.length ; i++ )
+    {
+      ranges[ i ] = _.longIs( o.ranges[ i ] ) ? o.ranges[ i ].slice() : o.ranges[ i ];
+    }
+
+    delta = _.longIs( o.delta ) ? o.delta.slice() : null;
+    _.assert( !delta || ranges.length === delta.length, 'delta must be same length as ranges' );
+  }
+
+  if( _.objectIs( ranges ) )
+  for( let r in ranges )
+  adjustRange( r );
+  else
+  for( let r = 0 ; r < ranges.length ; r++ )
+  adjustRange( r );
+
+  o.ranges = ranges
+  o.delta = delta;
+  return o;
+
+  /* adjust range */
+
+  function adjustRange( r )
+  {
+
+    if( _.numberIs( ranges[ r ] ) )
+    ranges[ r ] = [ 0, ranges[ r ] ];
+
+    if( !_.longIs( ranges[ r ] ) )
+    throw _.err( 'Expects range as array :', ranges[ r ] );
+
+    _.assert( ranges[ r ].length === 2 );
+    _.assert( _.numberIs( ranges[ r ][ 0 ] ) );
+    _.assert( _.numberIs( ranges[ r ][ 1 ] ) );
+
+    if( _.numberIsInfinite( ranges[ r ][ 0 ] ) )
+    ranges[ r ][ 0 ] = 1;
+    if( _.numberIsInfinite( ranges[ r ][ 1 ] ) )
+    ranges[ r ][ 1 ] = 1;
+
+    o.iterationNumber *= ranges[ r ][ 1 ] - ranges[ r ][ 0 ];
+
+  }
+
+}
+
+//
+
+function eachInMultiRange_body( o )
+{
+
+  if( o.estimate )
+  {
+    if( !o.ranges.length )
+    return 0;
+    return { length : o.iterationNumber };
+  }
+
+  let last = o.ranges.length-1;
+  let indexFlat = 0;
+  let indexNd = [];
+  for( let r = 0 ; r < o.ranges.length ; r++ )
+  {
+    indexNd[ r ] = o.ranges[ r ][ 0 ];
+    if( o.ranges[ r ][ 1 ] <= o.ranges[ r ][ 0 ] )
+    return 0;
+  }
+
+
+  while( indexNd[ last ] < o.ranges[ last ][ 1 ] )
+  {
+
+    let r = getValue( indexNd );
+    if( o.result )
+    o.result[ indexFlat ] = r;
+
+    let res = o.onEach.call( o, r, indexFlat );
+
+    if( o.breaking && res === false )
+    break;
+
+    indexFlat += 1;
+
+    let c = 0;
+    do
+    {
+      if( c >= o.ranges.length )
+      break;
+      if( c > 0 )
+      indexNd[ c-1 ] = o.ranges[ c-1 ][ 0 ];
+
+      if( o.delta )
+      {
+        _.assert
+        (
+          _.numberIsFinite( o.delta[ c ] ) && o.delta[ c ] > 0,
+          `delta must contain only positive numbers, incorrect element : ${ o.delta[ c ] }`
+        );
+        indexNd[ c ] += o.delta[ c ];
+      }
+      else
+      {
+        indexNd[ c ] += 1;
+      }
+
+      c += 1;
+    }
+    while( indexNd[ c-1 ] >= o.ranges[ c-1 ][ 1 ] );
+
+  }
+
+  /* */
+
+  if( o.result )
+  return o.result
+  else
+  return indexFlat;
+
+  /* */
+
+  function getValue( arg )
+  {
+    if( o.names )
+    {
+      let result = Object.create( null );
+      for( let i = 0 ; i < o.names.length ; i++ )
+      result[ o.names[ i ] ] = arg[ i ];
+      return result;
+    }
+    else
+    {
+      return arg.slice();
+    }
+  }
+
+}
+
+eachInMultiRange_body.defaults =
+{
+  result : null,
+  ranges : null,
+  delta : null, /* Dmytro : maybe it not needs */
+  onEach : null,
+  estimate : 0, /* Dmytro : maybe it not needs */
+  breaking : 0,
+}
+
+//
+
+function eachInMultiRange_body_( o )
+{
+
+  let last = o.ranges.length-1;
+  let indexFlat = 0;
+  let indexNd = [];
+  for( let r = 0 ; r < o.ranges.length ; r++ )
+  {
+    indexNd[ r ] = o.ranges[ r ][ 0 ];
+    if( o.ranges[ r ][ 1 ] <= o.ranges[ r ][ 0 ] )
+    return 0;
+  }
+
+  while( indexNd[ last ] < o.ranges[ last ][ 1 ] )
+  {
+
+    let r = getValue( indexNd );
+    if( o.result )
+    o.result[ indexFlat ] = r;
+
+    let res = o.onEach.call( o, r, indexFlat );
+
+    if( o.breaking && res === false )
+    break;
+
+    indexFlat += 1;
+
+    let c = 0;
+    do
+    {
+      if( c >= o.ranges.length )
+      break;
+      if( c > 0 )
+      indexNd[ c-1 ] = o.ranges[ c-1 ][ 0 ];
+
+      indexNd[ c ] += 1;
+      c += 1;
+    }
+    while( indexNd[ c-1 ] >= o.ranges[ c-1 ][ 1 ] );
+
+  }
+
+  /* */
+
+  if( o.result )
+  return o.result
+  else
+  return indexFlat;
+
+  /* */
+
+  function getValue( arg )
+  {
+    if( o.names )
+    {
+      let result = Object.create( null );
+      for( let i = 0 ; i < o.names.length ; i++ )
+      result[ o.names[ i ] ] = arg[ i ];
+      return result;
+    }
+    else
+    {
+      return arg.slice();
+    }
+  }
+
+}
+
+eachInMultiRange_body_.defaults =
+{
+  result : null,
+  ranges : null,
+  onEach : null,
+  breaking : 0,
+}
+
+//
+
+let whileInMultiRange_ = _.routineFromPreAndBody( eachInMultiRange_pre, eachInMultiRange_body_ );
+
+whileInMultiRange_.breaking = 1;
+
+//
+
+let eachInMultiRange_ = _.routineFromPreAndBody( eachInMultiRange_pre, eachInMultiRange_body_ );
+
+//
+
 /**
  * Returns value from entity( src ) using position provided by argument( index ).
  * For object routine iterates over all properties and returns value when counter reaches( index ).
@@ -701,6 +989,9 @@ let Routines =
   eachInRange,
   eachInManyRanges,
   eachInMultiRange, /* qqq : light coverage required */
+
+  eachInMultiRange_,
+  whileInMultiRange_,
 
   entityValueWithIndex, /* dubious */
   entityKeyWithValue, /* dubious */
