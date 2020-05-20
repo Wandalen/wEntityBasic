@@ -586,7 +586,8 @@ function eachInMultiRange_pre_( routine, arg )
   }
 
   _.routineOptions( routine, o );
-  _.assert( _.objectIs( o ) )
+  _.assert( arg.length === 1, 'Expects single argument' );
+  _.assert( _.objectIs( o ) );
   _.assert( _.arrayIs( o.ranges ) || _.objectIs( o.ranges ), 'Expects o.ranges as array or object' )
   _.assert( _.routineIs( o.onEach ), 'Expects o.onEach as routine' )
 

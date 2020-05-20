@@ -1513,7 +1513,7 @@ function eachInMultiRange_RangesIsArray( test )
   var got = _.eachInMultiRange_( o );
   test.identical( got, expected )
   test.identical( o.result, expected )
-  test.identical( o.ranges, [ [ 0,1 ] ] );
+  test.identical( o.ranges, [ [ 0, 1 ] ] );
   test.is( got === o.result );
 
   /* - */
@@ -1807,7 +1807,7 @@ function eachInMultiRange_RangesIsArray( test )
   test.case = 'ranges - [ [ Infinity, Infinity ], [ 0, Infinity ] ]';
   var o =
   {
-    ranges : [ [ Infinity,Infinity ], [ 0,Infinity ] ],
+    ranges : [ [ Infinity,Infinity ], [ 0, Infinity ] ],
     onEach : null,
     result : [],
   };
@@ -1988,6 +1988,541 @@ function eachInMultiRange_RangesIsArray( test )
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ], [ 0, 1 ] ] );
 
   test.close( '4D' );
+}
+
+//
+
+function eachInMultiRange_RangesIsMap( test )
+{
+  test.case = 'ranges - { a : 1 }, routine replace not defined callback';
+  var o =
+  {
+    ranges : { a : 1 },
+    onEach : null,
+    result : [],
+  };
+  var expected =
+  [
+    { a : 0 }
+  ];
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 0, 1 ] ] );
+  test.is( got === o.result );
+  test.is( _.routineIs( o.onEach ) );
+
+  /* */
+
+  test.case = 'ranges - { a : [ 0, 1 ] }, ready ranges';
+  var o =
+  {
+    ranges : { a : [ 0, 1 ] },
+    onEach : null,
+    result : [],
+  };
+  var expected =
+  [
+    { a : 0 }
+  ];
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, expected )
+  test.identical( o.result, expected )
+  test.identical( o.ranges, [ [ 0, 1 ] ] );
+  test.is( got === o.result );
+
+  /* - */
+
+  test.open( '2D, ranges as numbers' );
+
+  test.case = 'ranges - { a : 0, b : 0 }';
+  var o =
+  {
+    ranges : { a : 0, b : 0 },
+    onEach : null,
+    result : [],
+  };
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, 0 );
+  test.identical( o.result, [] );
+  test.identical( o.ranges, [ [ 0, 0 ], [ 0, 0 ] ] );
+
+  /* */
+
+  test.case = 'ranges - { a : 0, b : 3 }, onEach returns false';
+  var o =
+  {
+    ranges : { a : 0, b : 3 },
+    onEach : ( iNd, iF ) => false,
+    result : [],
+  }
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, 0 );
+  test.identical( o.result, [] );
+  test.identical( o.ranges, [ [ 0, 0 ], [ 0, 3 ] ] );
+
+  /* */
+
+  test.case = 'ranges - { a : 3, b : 0 }, onEach returns false';
+  var o =
+  {
+    ranges : { a : 3, b : 0 },
+    onEach : ( iNd, iF ) => false,
+    result : [],
+  };
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, 0 );
+  test.identical( o.result, [] );
+  test.identical( o.ranges, [ [ 0, 3 ], [ 0, 0 ] ] );
+
+  /* */
+
+  test.case = 'ranges - { a : -1, b : 3 }';
+  var o =
+  {
+    ranges : { a : -1, b : 3 },
+    onEach : null,
+    result : [],
+  };
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, 0 )
+  test.identical( o.result, [] );
+  test.identical( o.ranges, [ [ 0, -1 ], [ 0, 3 ] ] );
+
+  /* */
+
+  test.case = 'ranges - { a : 1, b : 3 }';
+  var o =
+  {
+    ranges : { a : 1, b : 3 },
+    onEach : null,
+    result : [],
+  };
+  var expected =
+  [
+    { a : 0, b : 0 },
+    { a : 0, b : 1 },
+    { a : 0, b : 2 },
+  ];
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 0, 1 ], [ 0, 3 ] ] );
+  test.is( got === o.result );
+
+  /* */
+
+  test.case = 'ranges - { a : 2, b : 2 }, result - null';
+  var o =
+  {
+    ranges : { a : 2, b : 2 },
+    onEach : null,
+    result : null,
+  };
+  var expected =
+  [
+    { a : 0, b : 0 },
+    { a : 1, b : 0 },
+    { a : 0, b : 1 },
+    { a : 1, b : 1 },
+  ];
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, 4 );
+  test.identical( o.result, null );
+  test.identical( o.ranges, [ [ 0, 2 ], [ 0, 2 ] ] );
+
+  /* */
+
+  test.case = 'ranges - { a : 3, b : Infinity }';
+  var o =
+  {
+    ranges : { a : 3, b : Infinity },
+    onEach : null,
+    result : [],
+  };
+  var expected =
+  [
+    { a : 0, b : 0 },
+    { a : 1, b : 0 },
+    { a : 2, b : 0 },
+  ];
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 0, 3 ], [ 0, 1 ] ] );
+  test.is( got === o.result );
+
+  /* */
+
+  test.case = 'ranges - { a : Infinity, b : 3 }';
+  var o =
+  {
+    ranges : { a : Infinity, b : 3 },
+    onEach : null,
+    result : [],
+  };
+  var expected =
+  [
+    { a : 0, b : 0 },
+    { a : 0, b : 1 },
+    { a : 0, b : 2 },
+  ];
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 0, 1 ], [ 0, 3 ] ] );
+  test.is( got === o.result );
+
+  /* */
+
+  test.case = 'ranges - { a : Infinity, b : 1 }';
+  var o =
+  {
+    ranges : { a : Infinity, b : 1 },
+    onEach : null,
+    result : [],
+  };
+  var expected =
+  [
+    { a : 0, b : 0 }
+  ];
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 0, 1 ], [ 0, 1 ] ] );
+  test.is( got === o.result );
+
+  /* */
+
+  test.case = 'ranges - { a : Infinity, b : Infinity }';
+  var o =
+  {
+    ranges : { a : Infinity, b : Infinity },
+    onEach : null,
+    result : [],
+  };
+  var expected =
+  [
+    { a : 0, b : 0 }
+  ];
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 0, 1 ], [ 0, 1 ] ] );
+  test.is( got === o.result );
+
+  test.close( '2D, ranges as numbers' );
+
+  /* - */
+
+  test.open( '2D, ranges as arrays' );
+
+  test.case = 'ranges - { a : [ 0, 0 ], b : [ 0, 0 ] }, callback returns false';
+  var o =
+  {
+    ranges : { a : [ 0, 0 ], b : [ 0, 0 ] },
+    onEach : ( iNd, iF ) => false,
+    result : [],
+  };
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, 0 );
+  test.identical( o.result, [] );
+  test.identical( o.ranges, [ [ 0, 0 ], [ 0, 0 ] ] );
+
+  /* */
+
+  test.case = 'ranges - { a : [ 0, 0 ], b : [ 0, 3 ] }';
+  var o =
+  {
+    ranges : { a : [ 0, 0 ], b : [ 0, 3 ] },
+    onEach : null,
+    result : [],
+  };
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, 0 );
+  test.identical( o.result, [] );
+  test.identical( o.ranges, [ [ 0, 0 ], [ 0, 3 ] ] );
+
+  /* */
+
+  test.case = 'ranges - { a : [ -1, 1 ], b : [ 0, 2 ] }';
+  var o =
+  {
+    ranges : { a : [ -1, 1 ], b : [ 0, 2 ] },
+    onEach : null,
+    result : [],
+  };
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, 0 );
+  test.identical( o.result, [] );
+  test.identical( o.ranges, [ [ -1, 1 ], [ 0, 2 ] ] );
+
+  /* */
+
+  test.case = 'ranges - { a : [ 0, 1 ], b : [ 0, 3 ] }, callback returns false';
+  var o =
+  {
+    ranges : { a : [ 0, 1 ], b : [ 0, 3 ] },
+    onEach : ( iNd, iF ) => false,
+    result : [],
+  };
+  var expected =
+  [
+    { a : 0, b : 0 },
+    { a : 0, b : 1 },
+    { a : 0, b : 2 },
+  ];
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 0, 1 ], [ 0, 3 ] ] );
+  test.is( got === o.result );
+
+  /* */
+
+  test.case = 'ranges - { a : [ 0, 3 ], [ 0, b : Infinity ] }, result - null';
+  var o =
+  {
+    ranges : { a : [ 0, 3 ], b : [ 0, Infinity ] },
+    onEach : null,
+    result : null,
+  };
+  var expected =
+  [
+    { a : 0, b : 0 },
+    { a : 1, b : 0 },
+    { a : 2, b : 0 },
+  ];
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, 3 );
+  test.identical( o.result, null )
+  test.identical( o.ranges, [ [ 0, 3 ], [ 0, 1 ] ] );
+
+  /* */
+
+  test.case = 'ranges - { a : [ 0, Infinity ], b : [ 0, Infinity ] }';
+  var o =
+  {
+    ranges : { a : [ 0, Infinity ], b : [ 0, Infinity ] },
+    onEach : null,
+    result : [],
+  };
+  var expected =
+  [
+    { a : 0, b : 0 },
+  ];
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 0, 1 ], [ 0, 1 ] ] );
+  test.is( got === o.result );
+
+  /* */
+
+  test.case = 'ranges - { a : [ Infinity, Infinity ], b : [ 0, Infinity ] }';
+  var o =
+  {
+    ranges : { a : [ Infinity,Infinity ], b : [ 0, Infinity ] },
+    onEach : null,
+    result : [],
+  };
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, 0 );
+  test.identical( o.result, [] );
+  test.identical( o.ranges, [ [ 1, 1 ], [ 0, 1 ] ] );
+
+  /* */
+
+  test.case = 'ranges - { a : [ Infinity, 2 ], b : [ Infinity, 3 ] }';
+  var o =
+  {
+    ranges : { a : [ Infinity, 2 ], b : [ Infinity, 3 ] },
+    onEach : null,
+    result : [],
+  };
+  var expected =
+  [
+    { a : 1, b : 1 },
+    { a : 1, b : 2 }
+  ];
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 1, 2 ], [ 1, 3 ] ] );
+  test.is( got === o.result );
+
+  /* */
+
+  test.case = 'ranges - { a : [ Infinity, 2 ], b : Infinity }, mixed types of ranges';
+  var o =
+  {
+    ranges : { a : [ Infinity, 2 ], b : Infinity },
+    onEach : null,
+    result : [],
+  };
+  var expected =
+  [
+    { a : 1, b : 0 }
+  ];
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 1, 2 ], [ 0, 1 ] ] );
+  test.is( got === o.result );
+
+  test.close( '2D, ranges as arrays' );
+
+  /* - */
+
+  test.open( '3D' );
+
+  test.case = 'ranges - { a : 1, b : 2, c : 3 }';
+  var o =
+  {
+    ranges : { a : 1, b : 2, c : 3 },
+    onEach : null,
+    result : [],
+  };
+  var expected =
+  [
+    { a : 0, b : 0, c : 0 },
+    { a : 0, b : 1, c : 0 },
+    { a : 0, b : 0, c : 1 },
+    { a : 0, b : 1, c : 1 },
+    { a : 0, b : 0, c : 2 },
+    { a : 0, b : 1, c : 2 }
+  ];
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ] ] );
+  test.is( got === o.result );
+
+  /* */
+
+  test.case = 'ranges - { a : [ 0, 1 ], b : [ 0, 2 ], c : [ 0, 3 ] }, callback returns false';
+  var o =
+  {
+    ranges : { a : [ 0, 1 ], b : [ 0, 2 ], c : [ 0, 3 ] },
+    onEach : ( iNd, iF ) => false,
+    result : [],
+  }
+  var expected =
+  [
+    { a : 0, b : 0, c : 0 },
+    { a : 0, b : 1, c : 0 },
+    { a : 0, b : 0, c : 1 },
+    { a : 0, b : 1, c : 1 },
+    { a : 0, b : 0, c : 2 },
+    { a : 0, b : 1, c : 2 }
+  ]
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ] ] );
+  test.is( got === o.result );
+
+  /* */
+
+  test.case = 'ranges - { a : [ 0, Infinity ], b : [ 0, 2 ], c : [ 0, 3 ] }, result - null';
+  var o =
+  {
+    ranges : { a : [ 0, Infinity ], b : [ 0, 2 ], c : [ 0, 3 ] },
+    onEach : null,
+    result : null,
+  }
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, 6 );
+  test.identical( o.result, null );
+  test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ] ] );
+
+  test.close( '3D' );
+
+  /* - */
+
+  test.open( '4D' );
+
+  test.case = 'ranges - { a : 1, b : 2, c : 3, d : 1 }';
+  var o =
+  {
+    ranges : { a : 1, b : 2, c : 3, d : 1 },
+    onEach : null,
+    result : [],
+  };
+  var expected =
+  [
+    { a : 0, b : 0, c : 0, d : 0 },
+    { a : 0, b : 1, c : 0, d : 0 },
+    { a : 0, b : 0, c : 1, d : 0 },
+    { a : 0, b : 1, c : 1, d : 0 },
+    { a : 0, b : 0, c : 2, d : 0 },
+    { a : 0, b : 1, c : 2, d : 0 }
+  ];
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ], [ 0, 1 ] ] );
+  test.is( got === o.result );
+
+  /* */
+
+  test.case = 'ranges - { a : [ 0, 1 ], b : [ 0, 2 ], c : [ 0, 3 ], d : 1 }, callback returns false';
+  var o =
+  {
+    ranges : { a : [ 0, 1 ], b : [ 0, 2 ], c : [ 0, 3 ], d : 1 },
+    onEach : ( iNd, iF ) => false,
+    result : [],
+  }
+  var expected =
+  [
+    { a : 0, b : 0, c : 0, d : 0 },
+    { a : 0, b : 1, c : 0, d : 0 },
+    { a : 0, b : 0, c : 1, d : 0 },
+    { a : 0, b : 1, c : 1, d : 0 },
+    { a : 0, b : 0, c : 2, d : 0 },
+    { a : 0, b : 1, c : 2, d : 0 }
+  ]
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ], [ 0, 1 ] ] );
+  test.is( got === o.result );
+
+  /* */
+
+  test.case = 'ranges - { a : [ 0, Infinity ], b : [ 0, 2 ], c : [ 0, 3 ], d : Infinity }, result - null';
+  var o =
+  {
+    ranges : { a : [ 0, Infinity ], b : [ 0, 2 ], c : [ 0, 3 ], d : Infinity },
+    onEach : null,
+    result : null,
+  }
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, 6 );
+  test.identical( o.result, null );
+  test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ], [ 0, 1 ] ] );
+
+  test.close( '4D' );
+
+  /* - */
+
+  if( !Config.debug )
+  return;
+
+  test.case = 'without arguments';
+  test.shouldThrowErrorOfAnyKind( () => _.eachInMultiRange_() );
+
+  test.case = 'extra arguments';
+  test.shouldThrowErrorOfAnyKind( () => _.eachInMultiRange_( { ranges : [ 1, 2 ] }, { onEach : null } ) );
+
+  test.case = 'wrong type of o.ranges';
+  test.shouldThrowErrorOfAnyKind( () => _.eachInMultiRange_({ ranges : 0 }) );
+
+  test.case = 'wrong type of o.onEach';
+  test.shouldThrowErrorOfAnyKind( () => _.eachInMultiRange_({ onEach : 0 }) );
+
+  test.case = 'options map o has unknown option';
+  test.shouldThrowErrorOfAnyKind( () => _.eachInMultiRange_({ someProp : 0 }) );
 }
 
 //
@@ -2280,6 +2815,7 @@ var Self =
 
     eachInMultiRange,
     eachInMultiRange_RangesIsArray,
+    eachInMultiRange_RangesIsMap,
 
     entityValueWithIndex,
     entityKeyWithValue,
