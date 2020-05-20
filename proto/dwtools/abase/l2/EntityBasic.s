@@ -665,7 +665,7 @@ function eachInMultiRange_body_( o )
   for( let r = 0 ; r < o.ranges.length ; r++ )
   {
     indexNd[ r ] = o.ranges[ r ][ 0 ];
-    if( o.ranges[ r ][ 1 ] <= o.ranges[ r ][ 0 ] )
+    if( ( o.ranges[ r ][ 1 ] <= o.ranges[ r ][ 0 ] ) || o.ranges[ r ][ 0 ] < 0 )
     return 0;
   }
 
