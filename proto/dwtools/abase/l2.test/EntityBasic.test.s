@@ -1562,6 +1562,20 @@ function eachInMultiRange_RangesIsArray( test )
 
   /* */
 
+  test.case = 'ranges - [ -1, 3 ]';
+  var o =
+  {
+    ranges : [ -1, 3 ],
+    onEach : null,
+    result : [],
+  };
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, 0 )
+  test.identical( o.result, [] );
+  test.identical( o.ranges, [ [ 0, -1 ], [ 0, 3 ] ] );
+
+  /* */
+
   test.case = 'ranges - [ 1, 3 ]';
   var o =
   {
@@ -1713,6 +1727,20 @@ function eachInMultiRange_RangesIsArray( test )
   test.identical( got, 0 );
   test.identical( o.result, [] );
   test.identical( o.ranges, [ [ 0, 0 ], [ 0, 3 ] ] );
+
+  /* */
+
+  test.case = 'ranges - [ [ -1, 1 ], [ 0, 2 ] ]';
+  var o =
+  {
+    ranges : [ [ -1, 1 ], [ 0, 2 ] ],
+    onEach : null,
+    result : [],
+  };
+  var got = _.eachInMultiRange_( o );
+  test.identical( got, 0 );
+  test.identical( o.result, [] );
+  test.identical( o.ranges, [ [ -1, 1 ], [ 0, 2 ] ] );
 
   /* */
 
