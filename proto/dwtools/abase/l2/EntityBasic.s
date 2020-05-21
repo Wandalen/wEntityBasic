@@ -851,7 +851,6 @@ function entityFreeze( src )
   if( _.bufferTypedIs( src ) )
   {
     src = src.buffer;
-    debugger;
   }
 
   Object.freeze( src );
@@ -1016,7 +1015,7 @@ Object.assign( Self, Fields );
 // export
 // --
 
-if( typeof module !== 'undefined' && module !== null )
+if( typeof module !== 'undefined' )
 module[ 'exports' ] = Self;
 
 } )( );
