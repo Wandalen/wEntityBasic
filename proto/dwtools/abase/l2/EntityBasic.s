@@ -370,7 +370,7 @@ eachInMultiRange.defaults =
 
 //
 
-
+/* Dmytro : pre that keep all features of previous routine */
 
 function eachInMultiRange_pre( routine, arg ) // ( o )
 {
@@ -468,6 +468,8 @@ function eachInMultiRange_pre( routine, arg ) // ( o )
 }
 
 //
+
+/* Dmytro : body that keep all features of previous routine, not used */
 
 function eachInMultiRange_body( o )
 {
@@ -570,6 +572,91 @@ eachInMultiRange_body.defaults =
 
 //
 
+/* Dmytro : pre without options `delta` and `estimate`, used in routines */
+
+function eachInMultiRange_pre_( routine, arg )
+{
+
+  let o = arg[ 0 ];
+
+  if( !o.onEach )
+  o.onEach = function( e )
+  {
+    console.log( e );
+  }
+
+  _.routineOptions( routine, o );
+  _.assert( arg.length === 1, 'Expects single argument' );
+  _.assert( _.objectIs( o ) );
+  _.assert( _.arrayIs( o.ranges ) || _.objectIs( o.ranges ), 'Expects o.ranges as array or object' )
+  _.assert( _.routineIs( o.onEach ), 'Expects o.onEach as routine' )
+
+  let ranges = [];
+  o.names = null;
+
+  /* */
+
+  if( _.objectIs( o.ranges ) )
+  {
+
+    o.names = [];
+    let i = 0;
+    for( let r in o.ranges )
+    {
+      o.names[ i ] = r;
+      ranges[ i ] = o.ranges[ r ];
+      i += 1;
+    }
+
+  }
+  else
+  {
+
+    _.assert( _.longIs( o.ranges ) );
+    ranges = [];
+    for( let i = 0 ; i < o.ranges.length ; i++ )
+    ranges[ i ] = _.longIs( o.ranges[ i ] ) ? o.ranges[ i ].slice() : o.ranges[ i ];
+
+  }
+
+  if( _.objectIs( ranges ) )
+  for( let r in ranges )
+  adjustRange( r );
+  else
+  for( let r = 0 ; r < ranges.length ; r++ )
+  adjustRange( r );
+
+  o.ranges = ranges
+  return o;
+
+  /* adjust range */
+
+  function adjustRange( r )
+  {
+
+    if( _.numberIs( ranges[ r ] ) )
+    ranges[ r ] = [ 0, ranges[ r ] ];
+
+    if( !_.longIs( ranges[ r ] ) )
+    throw _.err( 'Expects range as array :', ranges[ r ] );
+
+    _.assert( ranges[ r ].length === 2 );
+    _.assert( _.numberIs( ranges[ r ][ 0 ] ) );
+    _.assert( _.numberIs( ranges[ r ][ 1 ] ) );
+
+    if( _.numberIsInfinite( ranges[ r ][ 0 ] ) )
+    ranges[ r ][ 0 ] = 1;
+    if( _.numberIsInfinite( ranges[ r ][ 1 ] ) )
+    ranges[ r ][ 1 ] = 1;
+
+  }
+
+}
+
+//
+
+/* Dmytro : body without options `delta` and `estimate`, it is used in new routines */
+
 function eachInMultiRange_body_( o )
 {
 
@@ -579,7 +666,7 @@ function eachInMultiRange_body_( o )
   for( let r = 0 ; r < o.ranges.length ; r++ )
   {
     indexNd[ r ] = o.ranges[ r ][ 0 ];
-    if( o.ranges[ r ][ 1 ] <= o.ranges[ r ][ 0 ] )
+    if( ( o.ranges[ r ][ 1 ] <= o.ranges[ r ][ 0 ] ) || o.ranges[ r ][ 0 ] < 0 )
     return 0;
   }
 
@@ -648,13 +735,13 @@ eachInMultiRange_body_.defaults =
 
 //
 
-let whileInMultiRange_ = _.routineFromPreAndBody( eachInMultiRange_pre, eachInMultiRange_body_ );
+let whileInMultiRange_ = _.routineFromPreAndBody( eachInMultiRange_pre_, eachInMultiRange_body_ );
 
-whileInMultiRange_.breaking = 1;
+whileInMultiRange_.defaults.breaking = 1;
 
 //
 
-let eachInMultiRange_ = _.routineFromPreAndBody( eachInMultiRange_pre, eachInMultiRange_body_ );
+let eachInMultiRange_ = _.routineFromPreAndBody( eachInMultiRange_pre_, eachInMultiRange_body_ );
 
 //
 
@@ -989,8 +1076,8 @@ let Routines =
   eachInManyRanges,
   eachInMultiRange, /* qqq : light coverage required */
 
-  eachInMultiRange_,
   whileInMultiRange_,
+  eachInMultiRange_,
 
   entityValueWithIndex, /* dubious */
   entityKeyWithValue, /* dubious */
