@@ -697,6 +697,12 @@ function eachInMultiRange_body_( o )
     return 0;
     iterateMap();
   }
+  else if( o.delta )
+  {
+    if( !checkRanges() )
+    return 0;
+    iterateWithDelta();
+  }
   else if( o.ranges.length <= 3 )
   {
     let result = iterate[ ( o.ranges.length - 1 ) * 4 + oResult + oBreaking ]();
@@ -749,13 +755,43 @@ function eachInMultiRange_body_( o )
 
   /* */
 
+  function iterateWithDelta()
+  {
+    while( indexNd[ indexNd.length - 1 ] < o.ranges[ indexNd.length - 1 ][ 1 ] )
+    {
+      if( o.result )
+      o.result[ indexFlat ] = indexNd.slice();
+
+      let res = o.onEach.call( o, indexNd, indexFlat );
+
+      if( o.breaking && res === false )
+      break;
+
+      indexFlat +=1;
+
+      let d = 0;
+      do
+      {
+        if( d >= o.ranges.length )
+        break;
+        if( d > 0 )
+        indexNd[ d - 1 ] = o.ranges[ d - 1 ][ 0 ];
+
+        indexNd[ d ] += o.delta ? o.delta[ d ] : 1;
+        d += 1;
+      }
+      while( indexNd[ d - 1 ] >= o.ranges[ d - 1 ][ 1 ] );
+    }
+  }
+
+  /* */
+
   function iterate1R0B0()
   {
     if( ( o.ranges[ 0 ][ 1 ] <= o.ranges[ 0 ][ 0 ] ) || o.ranges[ 0 ][ 0 ] < 0 )
     return false;
 
-    let delta = o.delta ? o.delta[ 0 ] : 1;
-    for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r += delta )
+    for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r++ )
     {
       indexNd[ 0 ] = r;
       o.onEach.call( o, indexNd, indexFlat );
@@ -768,8 +804,7 @@ function eachInMultiRange_body_( o )
     if( ( o.ranges[ 0 ][ 1 ] <= o.ranges[ 0 ][ 0 ] ) || o.ranges[ 0 ][ 0 ] < 0 )
     return false;
 
-    let delta = o.delta ? o.delta[ 0 ] : 1;
-    for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r += delta )
+    for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r++ )
     {
       indexNd[ 0 ] = r;
 
@@ -784,8 +819,7 @@ function eachInMultiRange_body_( o )
     if( ( o.ranges[ 0 ][ 1 ] <= o.ranges[ 0 ][ 0 ] ) || o.ranges[ 0 ][ 0 ] < 0 )
     return false;
 
-    let delta = o.delta ? o.delta[ 0 ] : 1;
-    for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r += delta )
+    for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r++ )
     {
       indexNd[ 0 ] = r;
 
@@ -799,8 +833,7 @@ function eachInMultiRange_body_( o )
     if( ( o.ranges[ 0 ][ 1 ] <= o.ranges[ 0 ][ 0 ] ) || o.ranges[ 0 ][ 0 ] < 0 )
     return false;
 
-    let delta = o.delta ? o.delta[ 0 ] : 1;
-    for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r += delta )
+    for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r++ )
     {
       indexNd[ 0 ] = r;
 
@@ -821,12 +854,10 @@ function eachInMultiRange_body_( o )
     )
     return false;
 
-    let delta0 = o.delta ? o.delta[ 0 ] : 1;
-    let delta1 = o.delta ? o.delta[ 1 ] : 1;
-    for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] ; c += delta1 )
+    for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] ; c++ )
     {
       indexNd[ 1 ] = c;
-      for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r += delta0 )
+      for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r++ )
       {
         indexNd[ 0 ] = r;
         o.onEach.call( o, indexNd, indexFlat );
@@ -844,12 +875,10 @@ function eachInMultiRange_body_( o )
     )
     return false;
 
-    let delta0 = o.delta ? o.delta[ 0 ] : 1;
-    let delta1 = o.delta ? o.delta[ 1 ] : 1;
-    for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] ; c += delta1 )
+    for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] ; c++ )
     {
       indexNd[ 1 ] = c;
-      for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r += delta0 )
+      for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r++ )
       {
         indexNd[ 0 ] = r;
         o.result[ indexFlat ] = indexNd.slice();
@@ -868,12 +897,10 @@ function eachInMultiRange_body_( o )
     )
     return false;
 
-    let delta0 = o.delta ? o.delta[ 0 ] : 1;
-    let delta1 = o.delta ? o.delta[ 1 ] : 1;
-    for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && result !== false ; c += delta1 )
+    for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && result !== false ; c++ )
     {
       indexNd[ 1 ] = c;
-      for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r += delta0 )
+      for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r++ )
       {
         indexNd[ 0 ] = r;
 
@@ -892,12 +919,10 @@ function eachInMultiRange_body_( o )
     )
     return false;
 
-    let delta0 = o.delta ? o.delta[ 0 ] : 1;
-    let delta1 = o.delta ? o.delta[ 1 ] : 1;
-    for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && result !== false ; c += delta1 )
+    for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && result !== false ; c++ )
     {
       indexNd[ 1 ] = c;
-      for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r += delta0 )
+      for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r++ )
       {
         indexNd[ 0 ] = r;
 
@@ -920,16 +945,13 @@ function eachInMultiRange_body_( o )
     )
     return false;
 
-    let delta0 = o.delta ? o.delta[ 0 ] : 1;
-    let delta1 = o.delta ? o.delta[ 1 ] : 1;
-    let delta2 = o.delta ? o.delta[ 2 ] : 1;
-    for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] ; d += delta2 )
+    for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] ; d++ )
     {
       indexNd[ 2 ] = d;
-      for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] ; c += delta1 )
+      for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] ; c++ )
       {
         indexNd[ 1 ] = c;
-        for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r += delta0 )
+        for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r++ )
         {
           indexNd[ 0 ] = r;
 
@@ -950,16 +972,13 @@ function eachInMultiRange_body_( o )
     )
     return false;
 
-    let delta0 = o.delta ? o.delta[ 0 ] : 1;
-    let delta1 = o.delta ? o.delta[ 1 ] : 1;
-    let delta2 = o.delta ? o.delta[ 2 ] : 1;
-    for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] ; d += delta2 )
+    for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] ; d++ )
     {
       indexNd[ 2 ] = d;
-      for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] ; c += delta1 )
+      for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] ; c++ )
       {
         indexNd[ 1 ] = c;
-        for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r += delta0 )
+        for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r++ )
         {
           indexNd[ 0 ] = r;
 
@@ -981,16 +1000,13 @@ function eachInMultiRange_body_( o )
     )
     return false;
 
-    let delta0 = o.delta ? o.delta[ 0 ] : 1;
-    let delta1 = o.delta ? o.delta[ 1 ] : 1;
-    let delta2 = o.delta ? o.delta[ 2 ] : 1;
-    for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] && result !== false ; d += delta2 )
+    for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] && result !== false ; d++ )
     {
       indexNd[ 2 ] = d;
-      for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && result !== false ; c += delta1 )
+      for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && result !== false ; c++ )
       {
         indexNd[ 1 ] = c;
-        for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r += delta0 )
+        for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r++ )
         {
           indexNd[ 0 ] = r;
 
@@ -1011,16 +1027,13 @@ function eachInMultiRange_body_( o )
     )
     return false;
 
-    let delta0 = o.delta ? o.delta[ 0 ] : 1;
-    let delta1 = o.delta ? o.delta[ 1 ] : 1;
-    let delta2 = o.delta ? o.delta[ 2 ] : 1;
-    for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] && result !== false ; d += delta2 )
+    for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] && result !== false ; d++ )
     {
       indexNd[ 2 ] = d;
-      for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && result !== false ; c += delta1 )
+      for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && result !== false ; c++ )
       {
         indexNd[ 1 ] = c;
-        for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r += delta0 )
+        for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r++ )
         {
           indexNd[ 0 ] = r;
 
