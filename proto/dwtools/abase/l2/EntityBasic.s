@@ -584,6 +584,7 @@ function eachInMultiRange_pre_( routine, arg )
     console.log( e );
   }
 
+  _.routineOptions( routine, o );
   _.assert( arg.length === 1, 'Expects single argument' );
   _.assert( _.objectIs( o ) );
   _.assert( _.arrayIs( o.ranges ) || _.objectIs( o.ranges ), 'Expects o.ranges as array or object' )
