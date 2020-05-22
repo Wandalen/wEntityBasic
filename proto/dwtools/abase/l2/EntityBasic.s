@@ -666,7 +666,7 @@ function eachInMultiRange_body_( o )
 
   let oResult = o.result ? 1 : 0;
   let oBreaking = o.breaking ? 2 : 0;
-  let iterateList =
+  let iterate =
   [
     iterate1R0B0, iterate1R1B0, iterate1R0B1, iterate1R1B1,
     iterate2R0B0, iterate2R1B0, iterate2R0B1, iterate2R1B1,
@@ -682,7 +682,7 @@ function eachInMultiRange_body_( o )
   }
   else if( o.ranges.length <= 3 )
   {
-    let result = iterateList[ ( o.ranges.length - 1 ) * 4 + oResult + oBreaking ]();
+    let result = iterate[ ( o.ranges.length - 1 ) * 4 + oResult + oBreaking ]();
     if( result === 0 )
     return 0;
   }
@@ -690,7 +690,7 @@ function eachInMultiRange_body_( o )
   {
     if( !checkRanges() )
     return 0;
-    iterateList[ iterateList.length - 4 + oResult + oBreaking ]();
+    iterate[ iterate.length - 4 + oResult + oBreaking ]();
   }
 
   if( o.result )
@@ -1032,6 +1032,8 @@ function eachInMultiRange_body_( o )
     r[ o.names[ i ] ] = arg[ i ];
     return r;
   }
+
+  /* */
 
   function inc()
   {
