@@ -670,36 +670,70 @@ function eachInMultiRange_body_( o )
     return 0;
   }
 
-  while( indexNd[ last ] < o.ranges[ last ][ 1 ] )
+  // while( indexNd[ last ] < o.ranges[ last ][ 1 ] )
+  // {
+  //
+  //   let r = getValue( indexNd );
+  //   if( o.result )
+  //   o.result[ indexFlat ] = r;
+  //
+  //   let res = o.onEach.call( o, r, indexFlat );
+  //
+  //   if( o.breaking && res === false )
+  //   break;
+  //
+  //   indexFlat += 1;
+  //
+  //   let c = 0;
+  //   do
+  //   {
+  //     if( c >= o.ranges.length )
+  //     break;
+  //     if( c > 0 )
+  //     indexNd[ c-1 ] = o.ranges[ c-1 ][ 0 ];
+  //
+  //     indexNd[ c ] += 1;
+  //     c += 1;
+  //   }
+  //   while( indexNd[ c-1 ] >= o.ranges[ c-1 ][ 1 ] );
+  //
+  // }
+
+  if( o.names )
   {
 
-    let r = getValue( indexNd );
-    if( o.result )
-    o.result[ indexFlat ] = r;
-
-    let res = o.onEach.call( o, r, indexFlat );
-
-    if( o.breaking && res === false )
-    break;
-
-    indexFlat += 1;
-
-    let c = 0;
     do
     {
-      if( c >= o.ranges.length )
-      break;
-      if( c > 0 )
-      indexNd[ c-1 ] = o.ranges[ c-1 ][ 0 ];
+      let r = Object.create( null );
+      for( let i = 0 ; i < o.names.length ; i++ )
+      r[ o.names[ i ] ] = indexNd[ i ];
 
-      indexNd[ c ] += 1;
-      c += 1;
+      if( o.result )
+      o.result[ indexFlat ] = r;
+
+      let res = o.onEach.call( o, r, indexFlat );
+
+      if( o.breaking && res === false )
+      break;
     }
-    while( indexNd[ c-1 ] >= o.ranges[ c-1 ][ 1 ] );
+    while( inc() )
 
   }
+  else
+  {
+    do
+    {
+      if( o.result )
+      o.result[ indexFlat ] = indexNd.slice();
 
-  /* */
+      let res = o.onEach.call( o, indexNd, indexFlat );
+
+      if( o.breaking && res === false )
+      break;
+    }
+    while( inc() )
+
+  }
 
   if( o.result )
   return o.result
@@ -708,19 +742,25 @@ function eachInMultiRange_body_( o )
 
   /* */
 
-  function getValue( arg )
+  function inc()
   {
-    if( o.names )
+    let d = 0;
+
+    while( d < o.ranges.length )
     {
-      let result = Object.create( null );
-      for( let i = 0 ; i < o.names.length ; i++ )
-      result[ o.names[ i ] ] = arg[ i ];
-      return result;
+      indexNd[ d ] += 1;
+      if( indexNd[ d ] < o.ranges[ d ][ 1 ] )
+      {
+        indexFlat += 1;
+        return true;
+      }
+      indexNd[ d ] = o.ranges[ d ][ 0 ];
+      d += 1;
     }
-    else
-    {
-      return arg.slice();
-    }
+
+    indexFlat += 1;
+
+    return false;
   }
 
 }
