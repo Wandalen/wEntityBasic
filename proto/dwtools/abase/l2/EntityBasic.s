@@ -664,13 +664,6 @@ function eachInMultiRange_body_( o )
   let indexFlat = 0;
   let indexNd = [];
 
-  for( let r = 0 ; r < o.ranges.length ; r++ )
-  {
-    indexNd[ r ] = o.ranges[ r ][ 0 ];
-    if( ( o.ranges[ r ][ 1 ] <= o.ranges[ r ][ 0 ] ) || o.ranges[ r ][ 0 ] < 0 )
-    return 0;
-  }
-
   let oResult = o.result ? 1 : 0;
   let oBreaking = o.breaking ? 2 : 0;
   let iterateList =
@@ -682,11 +675,23 @@ function eachInMultiRange_body_( o )
   ];
 
   if( o.names )
-  iterateMap();
+  {
+    if( !checkRanges() )
+    return 0;
+    iterateMap();
+  }
   else if( o.ranges.length <= 3 )
-  iterateList[ ( o.ranges.length - 1 ) * 4 + oResult + oBreaking ]();
+  {
+    let result = iterateList[ ( o.ranges.length - 1 ) * 4 + oResult + oBreaking ]();
+    if( result === _.nothing )
+    return 0;
+  }
   else
-  iterateList[ iterateList.length - 4 + oResult + oBreaking ]();
+  {
+    if( !checkRanges() )
+    return 0;
+    iterateList[ iterateList.length - 4 + oResult + oBreaking ]();
+  }
 
   if( o.result )
   return o.result
@@ -729,6 +734,8 @@ function eachInMultiRange_body_( o )
 
   function iterate1R0B0()
   {
+    if( ( o.ranges[ 0 ][ 1 ] <= o.ranges[ 0 ][ 0 ] ) || o.ranges[ 0 ][ 0 ] < 0 )
+    return _.nothing
     for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r++ )
     {
       indexNd[ 0 ] = r;
@@ -739,6 +746,8 @@ function eachInMultiRange_body_( o )
 
   function iterate1R1B0()
   {
+    if( ( o.ranges[ 0 ][ 1 ] <= o.ranges[ 0 ][ 0 ] ) || o.ranges[ 0 ][ 0 ] < 0 )
+    return _.nothing
     for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r++ )
     {
       indexNd[ 0 ] = r;
@@ -751,6 +760,8 @@ function eachInMultiRange_body_( o )
 
   function iterate1R0B1()
   {
+    if( ( o.ranges[ 0 ][ 1 ] <= o.ranges[ 0 ][ 0 ] ) || o.ranges[ 0 ][ 0 ] < 0 )
+    return _.nothing
     for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r++ )
     {
       indexNd[ 0 ] = r;
@@ -762,6 +773,8 @@ function eachInMultiRange_body_( o )
 
   function iterate1R1B1()
   {
+    if( ( o.ranges[ 0 ][ 1 ] <= o.ranges[ 0 ][ 0 ] ) || o.ranges[ 0 ][ 0 ] < 0 )
+    return _.nothing
     for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r++ )
     {
       indexNd[ 0 ] = r;
@@ -776,6 +789,12 @@ function eachInMultiRange_body_( o )
 
   function iterate2R0B0()
   {
+    if
+    (
+      ( o.ranges[ 0 ][ 1 ] <= o.ranges[ 0 ][ 0 ] ) || o.ranges[ 0 ][ 0 ] < 0 ||
+      ( o.ranges[ 1 ][ 1 ] <= o.ranges[ 1 ][ 0 ] ) || o.ranges[ 1 ][ 0 ] < 0
+    )
+    return _.nothing
     for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] ; c++ )
     {
       indexNd[ 1 ] = c;
@@ -790,6 +809,12 @@ function eachInMultiRange_body_( o )
 
   function iterate2R1B0()
   {
+    if
+    (
+      ( o.ranges[ 0 ][ 1 ] <= o.ranges[ 0 ][ 0 ] ) || o.ranges[ 0 ][ 0 ] < 0 ||
+      ( o.ranges[ 1 ][ 1 ] <= o.ranges[ 1 ][ 0 ] ) || o.ranges[ 1 ][ 0 ] < 0
+    )
+    return _.nothing
     for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] ; c++ )
     {
       indexNd[ 1 ] = c;
@@ -805,6 +830,12 @@ function eachInMultiRange_body_( o )
 
   function iterate2R0B1()
   {
+    if
+    (
+      ( o.ranges[ 0 ][ 1 ] <= o.ranges[ 0 ][ 0 ] ) || o.ranges[ 0 ][ 0 ] < 0 ||
+      ( o.ranges[ 1 ][ 1 ] <= o.ranges[ 1 ][ 0 ] ) || o.ranges[ 1 ][ 0 ] < 0
+    )
+    return _.nothing
     for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && result !== false ; c++ )
     {
       indexNd[ 1 ] = c;
@@ -820,6 +851,12 @@ function eachInMultiRange_body_( o )
 
   function iterate2R1B1()
   {
+    if
+    (
+      ( o.ranges[ 0 ][ 1 ] <= o.ranges[ 0 ][ 0 ] ) || o.ranges[ 0 ][ 0 ] < 0 ||
+      ( o.ranges[ 1 ][ 1 ] <= o.ranges[ 1 ][ 0 ] ) || o.ranges[ 1 ][ 0 ] < 0
+    )
+    return _.nothing
     for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && result !== false ; c++ )
     {
       indexNd[ 1 ] = c;
@@ -838,6 +875,13 @@ function eachInMultiRange_body_( o )
 
   function iterate3R0B0()
   {
+    if
+    (
+      ( o.ranges[ 0 ][ 1 ] <= o.ranges[ 0 ][ 0 ] ) || o.ranges[ 0 ][ 0 ] < 0 ||
+      ( o.ranges[ 1 ][ 1 ] <= o.ranges[ 1 ][ 0 ] ) || o.ranges[ 1 ][ 0 ] < 0 ||
+      ( o.ranges[ 2 ][ 1 ] <= o.ranges[ 2 ][ 0 ] ) || o.ranges[ 2 ][ 0 ] < 0
+    )
+    return _.nothing
     for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] ; d++ )
     {
       indexNd[ 2 ] = d;
@@ -857,6 +901,13 @@ function eachInMultiRange_body_( o )
 
   function iterate3R1B0()
   {
+    if
+    (
+      ( o.ranges[ 0 ][ 1 ] <= o.ranges[ 0 ][ 0 ] ) || o.ranges[ 0 ][ 0 ] < 0 ||
+      ( o.ranges[ 1 ][ 1 ] <= o.ranges[ 1 ][ 0 ] ) || o.ranges[ 1 ][ 0 ] < 0 ||
+      ( o.ranges[ 2 ][ 1 ] <= o.ranges[ 2 ][ 0 ] ) || o.ranges[ 2 ][ 0 ] < 0
+    )
+    return _.nothing
     for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] ; d++ )
     {
       indexNd[ 2 ] = d;
@@ -877,6 +928,13 @@ function eachInMultiRange_body_( o )
 
   function iterate3R0B1()
   {
+    if
+    (
+      ( o.ranges[ 0 ][ 1 ] <= o.ranges[ 0 ][ 0 ] ) || o.ranges[ 0 ][ 0 ] < 0 ||
+      ( o.ranges[ 1 ][ 1 ] <= o.ranges[ 1 ][ 0 ] ) || o.ranges[ 1 ][ 0 ] < 0 ||
+      ( o.ranges[ 2 ][ 1 ] <= o.ranges[ 2 ][ 0 ] ) || o.ranges[ 2 ][ 0 ] < 0
+    )
+    return _.nothing
     for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] && result !== false ; d++ )
     {
       indexNd[ 2 ] = d;
@@ -896,6 +954,13 @@ function eachInMultiRange_body_( o )
 
   function iterate3R1B1()
   {
+    if
+    (
+      ( o.ranges[ 0 ][ 1 ] <= o.ranges[ 0 ][ 0 ] ) || o.ranges[ 0 ][ 0 ] < 0 ||
+      ( o.ranges[ 1 ][ 1 ] <= o.ranges[ 1 ][ 0 ] ) || o.ranges[ 1 ][ 0 ] < 0 ||
+      ( o.ranges[ 2 ][ 1 ] <= o.ranges[ 2 ][ 0 ] ) || o.ranges[ 2 ][ 0 ] < 0
+    )
+    return _.nothing
     for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] && result !== false ; d++ )
     {
       indexNd[ 2 ] = d;
@@ -987,6 +1052,19 @@ function eachInMultiRange_body_( o )
     indexFlat += 1;
 
     return false;
+  }
+
+  /* */
+
+  function checkRanges()
+  {
+    for( let r = 0 ; r < o.ranges.length ; r++ )
+    {
+      indexNd[ r ] = o.ranges[ r ][ 0 ];
+      if( ( o.ranges[ r ][ 1 ] <= o.ranges[ r ][ 0 ] ) || o.ranges[ r ][ 0 ] < 0 )
+      return 0;
+    }
+    return 1;
   }
 
 }
