@@ -887,7 +887,7 @@ function eachInMultiRange_body_( o )
           {
             indexNd[ 0 ] = r;
 
-            let result = o.onEach.call( o, indexNd, indexFlat );
+            result = o.onEach.call( o, indexNd, indexFlat );
             indexFlat += 1;
           }
         }
