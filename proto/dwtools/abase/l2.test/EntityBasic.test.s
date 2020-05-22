@@ -1977,6 +1977,529 @@ function whileInMultiRange_RangesIsArray( test )
 
 //
 
+function whileInMultiRange_RangesIsArrayWithDelta( test )
+{
+
+  test.case = 'ranges - [ 1 ], routine replace not defined callback';
+  var o =
+  {
+    ranges : [ 1 ],
+    onEach : null,
+    result : [],
+    delta : [ 2 ],
+  };
+  var expected =
+  [
+    [ 0 ]
+  ];
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 0, 1 ] ] );
+  test.is( got === o.result );
+  test.is( _.routineIs( o.onEach ) );
+
+  /* */
+
+  test.case = 'ranges - [ [ 0, 1 ] ], ready ranges';
+  var o =
+  {
+    ranges : [ [ 0, 1 ] ],
+    onEach : null,
+    result : [],
+    delta : [ 2 ],
+  };
+  var expected =
+  [
+    [ 0 ]
+  ];
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, expected )
+  test.identical( o.result, expected )
+  test.identical( o.ranges, [ [ 0, 1 ] ] );
+  test.is( got === o.result );
+
+  /* - */
+
+  test.open( '2D, ranges as numbers' );
+
+  test.case = 'ranges - [ 0, 0 ]';
+  var o =
+  {
+    ranges : [ 0, 0 ],
+    onEach : null,
+    result : [],
+    delta : [ 1, 2 ],
+  };
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, 0 );
+  test.identical( o.result, [] );
+  test.identical( o.ranges, [ [ 0, 0 ], [ 0, 0 ] ] );
+
+  /* */
+
+  test.case = 'ranges - [ 0, 3 ], onEach returns false';
+  var o =
+  {
+    ranges : [ 0, 3 ],
+    onEach : ( iNd, iF ) => false,
+    result : [],
+    delta : [ 1, 2 ],
+  }
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, 0 );
+  test.identical( o.result, [] );
+  test.identical( o.ranges, [ [ 0, 0 ], [ 0, 3 ] ] );
+
+  /* */
+
+  test.case = 'ranges - [ 3, 0 ], onEach returns false';
+  var o =
+  {
+    ranges : [ 3, 0 ],
+    onEach : ( iNd, iF ) => false,
+    result : [],
+    delta : [ 1, 2 ],
+  };
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, 0 );
+  test.identical( o.result, [] );
+  test.identical( o.ranges, [ [ 0, 3 ], [ 0, 0 ] ] );
+
+  /* */
+
+  test.case = 'ranges - [ -1, 3 ]';
+  var o =
+  {
+    ranges : [ -1, 3 ],
+    onEach : null,
+    result : [],
+    delta : [ 1, 2 ],
+  };
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, 0 )
+  test.identical( o.result, [] );
+  test.identical( o.ranges, [ [ 0, -1 ], [ 0, 3 ] ] );
+
+  /* */
+
+  test.case = 'ranges - [ 1, 3 ], onEach returns false on 2 element';
+  var o =
+  {
+    ranges : [ 1, 3 ],
+    onEach : ( iNd, iF ) => iF < 1 ? true : false,
+    result : [],
+    delta : [ 1, 2 ],
+  };
+  var expected =
+  [
+    [ 0, 0 ],
+    [ 0, 2 ],
+  ];
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 0, 1 ], [ 0, 3 ] ] );
+  test.is( got === o.result );
+
+  /* */
+
+  test.case = 'ranges - [ 2, 2 ], result - null';
+  var o =
+  {
+    ranges : [ 2, 2 ],
+    onEach : null,
+    result : null,
+    delta : [ 1, 2 ],
+  };
+  var expected =
+  [
+    [ 0, 0 ],
+    [ 1, 0 ],
+    [ 0, 2 ],
+    [ 1, 2 ],
+  ];
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, 2 );
+  test.identical( o.result, null );
+  test.identical( o.ranges, [ [ 0, 2 ], [ 0, 2 ] ] );
+
+  /* */
+
+  test.case = 'ranges - [ 3, Infinity ]';
+  var o =
+  {
+    ranges : [ 3, Infinity ],
+    onEach : null,
+    result : [],
+    delta : [ 1, 2 ],
+  };
+  var expected =
+  [
+    [ 0, 0 ],
+    [ 1, 0 ],
+    [ 2, 0 ],
+  ];
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 0, 3 ], [ 0, 1 ] ] );
+  test.is( got === o.result );
+
+  /* */
+
+  test.case = 'ranges - [ Infinity, 3 ]';
+  var o =
+  {
+    ranges : [ Infinity, 3 ],
+    onEach : null,
+    result : [],
+    delta : [ 1, 2 ],
+  };
+  var expected =
+  [
+    [ 0, 0 ],
+    [ 0, 2 ],
+  ];
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 0, 1 ], [ 0, 3 ] ] );
+  test.is( got === o.result );
+
+  /* */
+
+  test.case = 'ranges - [ Infinity, 1 ]';
+  var o =
+  {
+    ranges : [ Infinity, 1 ],
+    onEach : null,
+    result : [],
+    delta : [ 1, 2 ],
+  };
+  var expected =
+  [
+    [ 0, 0 ]
+  ];
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 0, 1 ], [ 0, 1 ] ] );
+  test.is( got === o.result );
+
+  /* */
+
+  test.case = 'ranges - [ Infinity, Infinity ]';
+  var o =
+  {
+    ranges : [ Infinity, Infinity ],
+    onEach : null,
+    result : [],
+    delta : [ 1, 2 ],
+  };
+  var expected =
+  [
+    [ 0, 0 ]
+  ];
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 0, 1 ], [ 0, 1 ] ] );
+  test.is( got === o.result );
+
+  test.close( '2D, ranges as numbers' );
+
+  /* - */
+
+  test.open( '2D, ranges as arrays' );
+
+  test.case = 'ranges - [ [ 0, 0 ], [ 0, 0 ] ], callback returns false';
+  var o =
+  {
+    ranges : [ [ 0, 0 ], [ 0, 0 ] ],
+    onEach : ( iNd, iF ) => false,
+    result : [],
+    delta : [ 1, 2 ],
+  };
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, 0 );
+  test.identical( o.result, [] );
+  test.identical( o.ranges, [ [ 0, 0 ], [ 0, 0 ] ] );
+
+  /* */
+
+  test.case = 'ranges - [ [ 0, 0 ], [ 0, 3 ] ]';
+  var o =
+  {
+    ranges : [ [ 0, 0 ], [ 0, 3 ] ],
+    onEach : null,
+    result : [],
+    delta : [ 1, 2 ],
+  };
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, 0 );
+  test.identical( o.result, [] );
+  test.identical( o.ranges, [ [ 0, 0 ], [ 0, 3 ] ] );
+
+  /* */
+
+  test.case = 'ranges - [ [ -1, 1 ], [ 0, 2 ] ]';
+  var o =
+  {
+    ranges : [ [ -1, 1 ], [ 0, 2 ] ],
+    onEach : null,
+    result : [],
+    delta : [ 1, 2 ],
+  };
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, 0 );
+  test.identical( o.result, [] );
+  test.identical( o.ranges, [ [ -1, 1 ], [ 0, 2 ] ] );
+
+  /* */
+
+  test.case = 'ranges - [ [ 0, 1 ], [ 0, 3 ] ], callback returns false';
+  var o =
+  {
+    ranges : [ [ 0, 1 ], [ 0, 3 ] ],
+    onEach : ( iNd, iF ) => false,
+    result : [],
+    delta : [ 1, 2 ],
+  };
+  var expected =
+  [
+    [ 0, 0 ],
+  ];
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 0, 1 ], [ 0, 3 ] ] );
+  test.is( got === o.result );
+
+  /* */
+
+  test.case = 'ranges - [ [ 0, 3 ], [ 0, Infinity ] ], result - null, onEach returns false on 2 element';
+  var o =
+  {
+    ranges : [ [ 0, 3 ], [ 0, Infinity ] ],
+    onEach : ( iNd, iF ) => iF < 1 ? true : false,
+    result : null,
+    delta : [ 1, 2 ],
+  };
+  var expected =
+  [
+    [ 0, 0 ],
+    [ 1, 0 ],
+  ];
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, 1 );
+  test.identical( o.result, null )
+  test.identical( o.ranges, [ [ 0, 3 ], [ 0, 1 ] ] );
+
+  /* */
+
+  test.case = 'ranges - [ [ 0, Infinity ], [ 0, Infinity ] ]';
+  var o =
+  {
+    ranges : [ [ 0, Infinity ], [ 0, Infinity ] ],
+    onEach : null,
+    result : [],
+    delta : [ 1, 2 ],
+  };
+  var expected =
+  [
+    [ 0, 0 ],
+  ];
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 0, 1 ], [ 0, 1 ] ] );
+  test.is( got === o.result );
+
+  /* */
+
+  test.case = 'ranges - [ [ Infinity, Infinity ], [ 0, Infinity ] ]';
+  var o =
+  {
+    ranges : [ [ Infinity,Infinity ], [ 0, Infinity ] ],
+    onEach : null,
+    result : [],
+    delta : [ 1, 2 ],
+  };
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, 0 );
+  test.identical( o.result, [] );
+  test.identical( o.ranges, [ [ 1, 1 ], [ 0, 1 ] ] );
+
+  /* */
+
+  test.case = 'ranges - [ [ Infinity, 2 ], [ Infinity, 3 ] ]';
+  var o =
+  {
+    ranges : [ [ Infinity, 2 ], [ Infinity, 3 ] ],
+    onEach : null,
+    result : [],
+    delta : [ 1, 2 ],
+  };
+  var expected =
+  [
+    [ 1, 1 ],
+  ];
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 1, 2 ], [ 1, 3 ] ] );
+  test.is( got === o.result );
+
+  /* */
+
+  test.case = 'ranges - [ [ Infinity, 2 ], Infinity ], mixed types of ranges';
+  var o =
+  {
+    ranges : [ [ Infinity, 2 ], Infinity ],
+    onEach : null,
+    result : [],
+    delta : [ 1, 2 ],
+  };
+  var expected =
+  [
+    [ 1, 0 ]
+  ];
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 1, 2 ], [ 0, 1 ] ] );
+  test.is( got === o.result );
+
+  test.close( '2D, ranges as arrays' );
+
+  /* - */
+
+  test.open( '3D' );
+
+  test.case = 'ranges - [ 1, 2, 3 ]';
+  var o =
+  {
+    ranges : [ 1, 2, 3 ],
+    onEach : null,
+    result : [],
+    delta : [ 1, 1, 2 ],
+  };
+  var expected =
+  [
+    [ 0, 0, 0 ],
+    [ 0, 1, 0 ],
+    [ 0, 0, 2 ],
+    [ 0, 1, 2 ]
+  ];
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ] ] );
+  test.is( got === o.result );
+
+  /* */
+
+  test.case = 'ranges - [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ] ], callback returns false';
+  var o =
+  {
+    ranges : [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ] ],
+    onEach : ( iNd, iF ) => false,
+    result : [],
+    delta : [ 1, 1, 2 ],
+  }
+  var expected =
+  [
+    [ 0, 0, 0 ],
+  ]
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ] ] );
+  test.is( got === o.result );
+
+  /* */
+
+  test.case = 'ranges - [ [ 0, Infinity ], [ 0, 2 ], [ 0, 3 ] ], result - null';
+  var o =
+  {
+    ranges : [ [ 0, Infinity ], [ 0, 2 ], [ 0, 3 ] ],
+    onEach : null,
+    result : null,
+    delta : [ 1, 1, 2 ],
+  }
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, 4 );
+  test.identical( o.result, null );
+  test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ] ] );
+
+  test.close( '3D' );
+
+  /* - */
+
+  test.open( '4D' );
+
+  test.case = 'ranges - [ 1, 2, 3, 1 ]';
+  var o =
+  {
+    ranges : [ 1, 2, 3, 1 ],
+    onEach : null,
+    result : [],
+    delta : [ 1, 1, 2, 1 ],
+  };
+  var expected =
+  [
+    [ 0, 0, 0, 0 ],
+    [ 0, 1, 0, 0 ],
+    [ 0, 0, 2, 0 ],
+    [ 0, 1, 2, 0 ]
+  ];
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ], [ 0, 1 ] ] );
+  test.is( got === o.result );
+
+  /* */
+
+  test.case = 'ranges - [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ], 1 ], callback returns false';
+  var o =
+  {
+    ranges : [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ], 1 ],
+    onEach : ( iNd, iF ) => false,
+    result : [],
+    delta : [ 1, 1, 2, 1 ],
+  }
+  var expected =
+  [
+    [ 0, 0, 0, 0 ],
+  ]
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, expected );
+  test.identical( o.result, expected );
+  test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ], [ 0, 1 ] ] );
+  test.is( got === o.result );
+
+  /* */
+
+  test.case = 'ranges - [ [ 0, Infinity ], [ 0, 2 ], [ 0, 3 ], Infinity ], result - null';
+  var o =
+  {
+    ranges : [ [ 0, Infinity ], [ 0, 2 ], [ 0, 3 ], Infinity ],
+    onEach : null,
+    result : null,
+    delta : [ 1, 1, 2, 1 ],
+  }
+  var got = _.whileInMultiRange_( o );
+  test.identical( got, 4 );
+  test.identical( o.result, null );
+  test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ], [ 0, 1 ] ] );
+
+  test.close( '4D' );
+}
+
+//
+
 function whileInMultiRange_RangesIsMap( test )
 {
   test.case = 'ranges - { a : 1 }, routine replace not defined callback';
@@ -3836,6 +4359,7 @@ var Self =
 
     // eachInMultiRange,
     whileInMultiRange_RangesIsArray,
+    whileInMultiRange_RangesIsArrayWithDelta,
     whileInMultiRange_RangesIsMap,
     eachInMultiRange_RangesIsArray,
     eachInMultiRange_RangesIsMap,
