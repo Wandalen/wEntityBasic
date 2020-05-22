@@ -1775,7 +1775,7 @@ function whileInMultiRange_RangesIsArray( test )
     [ 1, 0 ],
   ];
   var got = _.whileInMultiRange_( o );
-  test.identical( got, 1 );
+  test.identical( got, 2 );
   test.identical( o.result, null )
   test.identical( o.ranges, [ [ 0, 3 ], [ 0, 1 ] ] );
 
