@@ -172,402 +172,402 @@ function eachInManyRanges( o )
 
 eachInManyRanges.defaults = Object.create( eachInRange.defaults )
 
+// //
 //
-
-/* qqq2 : split body and pre */
-/* qqq2 : improve formatting, put all subroutines to the end of the routine */
-/* qqq2 : implement special code for 2, 3 dimensional cases */
-
-/* qqq2 : split
-- _eachInMultiRange
-- whileInMultiRange
-- eachInMultiRange
-*/
-
-function eachInMultiRange( o ) /* xxx : rename, later */
-{
-
-  if( !o.onEach )
-  o.onEach = function( e )
-  {
-    console.log( e );
-  }
-
-  _.routineOptions( eachInMultiRange, o );
-  _.assert( _.objectIs( o ) )
-  _.assert( _.arrayIs( o.ranges ) || _.objectIs( o.ranges ), 'Expects o.ranges as array or object' )
-  _.assert( _.routineIs( o.onEach ), 'Expects o.onEach as routine' )
-  _.assert( !o.delta || _.strType( o.delta ) === _.strType( o.ranges ), 'o.delta must be same type as ranges' );
-
-  /* */
-
-  let iterationNumber = 1;
-  let l = 0;
-  let delta = _.objectIs( o.delta ) ? [] : null;
-  let ranges = [];
-  let names = null;
-  if( _.objectIs( o.ranges ) )
-  {
-    _.assert( _.objectIs( o.delta ) || !o.delta );
-
-    names = [];
-    let i = 0;
-    for( let r in o.ranges )
-    {
-      names[ i ] = r;
-      ranges[ i ] = o.ranges[ r ];
-      if( o.delta )
-      {
-        if( !o.delta[ r ] )
-        throw _.err( 'no delta for', r );
-        delta[ i ] = o.delta[ r ];
-      }
-      i += 1;
-    }
-
-    l = names.length;
-
-  }
-  else
-  {
-    // debugger;
-    // ranges = o.ranges.slice();
-    // ranges = _.cloneJust( o.ranges ); // xxx
-    // ranges = _.entityMake();
-
-    _.assert( _.arrayIs( o.ranges ) );
-    ranges = [];
-    for( let i = 0 ; i < o.ranges.length ; i++ )
-    {
-      ranges[ i ] = _.arrayIs( o.ranges[ i ] ) ? o.ranges[ i ].slice() : o.ranges[ i ];
-    }
-
-    delta = _.longIs( o.delta ) ? o.delta.slice() : null;
-    _.assert( !delta || ranges.length === delta.length, 'delta must be same length as ranges' );
-    l = o.ranges.length;
-  }
-
-  let last = ranges.length-1;
-
-  /* adjust range */
-
-  function adjustRange( r )
-  {
-
-    if( _.numberIs( ranges[ r ] ) )
-    ranges[ r ] = [ 0, ranges[ r ] ];
-
-    if( !_.longIs( ranges[ r ] ) )
-    throw _.err( 'Expects range as array :', ranges[ r ] );
-
-    _.assert( ranges[ r ].length === 2 );
-    _.assert( _.numberIs( ranges[ r ][ 0 ] ) );
-    _.assert( _.numberIs( ranges[ r ][ 1 ] ) );
-
-    if( _.numberIsInfinite( ranges[ r ][ 0 ] ) )
-    ranges[ r ][ 0 ] = 1;
-    if( _.numberIsInfinite( ranges[ r ][ 1 ] ) )
-    ranges[ r ][ 1 ] = 1;
-
-    iterationNumber *= ranges[ r ][ 1 ] - ranges[ r ][ 0 ];
-
-  }
-
-  if( _.objectIs( ranges ) )
-  for( let r in ranges )
-  adjustRange( r );
-  else
-  for( let r = 0 ; r < ranges.length ; r++ )
-  adjustRange( r );
-
-  /* estimate */
-
-  if( o.estimate )
-  {
-
-    if( !ranges.length )
-    return 0;
-
-    return { length : iterationNumber };
-
-  }
-
-  /* */
-
-  function getValue( arg ){ return arg.slice(); };
-  if( names )
-  getValue = function( arg )
-  {
-    let result = Object.create( null );
-    for( let i = 0 ; i < names.length ; i++ )
-    result[ names[ i ] ] = arg[ i ];
-    return result;
-  }
-
-  /* */
-
-  let indexFlat = 0;
-  let indexNd = [];
-  for( let r = 0 ; r < ranges.length ; r++ )
-  {
-    indexNd[ r ] = ranges[ r ][ 0 ];
-    if( ranges[ r ][ 1 ] <= ranges[ r ][ 0 ] )
-    return 0;
-  }
-
-  /* */
-
-  while( indexNd[ last ] < ranges[ last ][ 1 ] )
-  {
-
-    let r = getValue( indexNd );
-    if( o.result )
-    o.result[ indexFlat ] = r;
-
-    let res = o.onEach.call( o, r, indexFlat );
-
-    if( res === false )
-    break;
-
-    indexFlat += 1;
-
-    let c = 0;
-    do
-    {
-      if( c >= ranges.length )
-      break;
-      if( c > 0 )
-      indexNd[ c-1 ] = ranges[ c-1 ][ 0 ];
-      if( delta )
-      {
-        _.assert( _.numberIsFinite( delta[ c ] ) && delta[ c ] > 0, 'delta must contain only positive numbers, incorrect element:', delta[ c ] );
-        indexNd[ c ] += delta[ c ];
-      }
-      else
-      indexNd[ c ] += 1;
-      c += 1;
-    }
-    while( indexNd[ c-1 ] >= ranges[ c-1 ][ 1 ] );
-
-  }
-
-  /* */
-
-  if( o.result )
-  return o.result
-  else
-  return indexFlat;
-}
-
-eachInMultiRange.defaults =
-{
-  result : null,
-  ranges : null,
-  delta : null,
-  onEach : null,
-  estimate : 0,
-}
-
+// /* qqq2 : split body and pre */
+// /* qqq2 : improve formatting, put all subroutines to the end of the routine */
+// /* qqq2 : implement special code for 2, 3 dimensional cases */
 //
-
-/* Dmytro : pre that keep all features of previous routine */
-
-function eachInMultiRange_pre( routine, arg )
-{
-
-  let o = arg[ 0 ];
-
-  if( !o.onEach )
-  o.onEach = function( e )
-  {
-    console.log( e );
-  }
-
-  _.routineOptions( routine, o );
-  _.assert( _.objectIs( o ) )
-  _.assert( _.arrayIs( o.ranges ) || _.objectIs( o.ranges ), 'Expects o.ranges as array or object' )
-  _.assert( _.routineIs( o.onEach ), 'Expects o.onEach as routine' )
-  _.assert( !o.delta || _.strType( o.delta ) === _.strType( o.ranges ), 'o.delta must be same type as ranges' );
-
-  o.iterationNumber = 1;
-  let delta = _.objectIs( o.delta ) ? [] : null;
-  let ranges = [];
-  o.names = null;
-
-  /* */
-
-  if( _.objectIs( o.ranges ) )
-  {
-    _.assert( _.objectIs( o.delta ) || !o.delta );
-
-    o.names = [];
-    let i = 0;
-    for( let r in o.ranges )
-    {
-      o.names[ i ] = r;
-      ranges[ i ] = o.ranges[ r ];
-      if( o.delta )
-      {
-        if( !o.delta[ r ] )
-        throw _.err( 'no delta for', r );
-        delta[ i ] = o.delta[ r ];
-      }
-      i += 1;
-    }
-
-  }
-  else
-  {
-
-    _.assert( _.longIs( o.ranges ) );
-    ranges = [];
-    for( let i = 0 ; i < o.ranges.length ; i++ )
-    {
-      ranges[ i ] = _.longIs( o.ranges[ i ] ) ? o.ranges[ i ].slice() : o.ranges[ i ];
-    }
-
-    delta = _.longIs( o.delta ) ? o.delta.slice() : null;
-    _.assert( !delta || ranges.length === delta.length, 'delta must be same length as ranges' );
-  }
-
-  if( _.objectIs( ranges ) )
-  for( let r in ranges )
-  adjustRange( r );
-  else
-  for( let r = 0 ; r < ranges.length ; r++ )
-  adjustRange( r );
-
-  o.ranges = ranges
-  o.delta = delta;
-  return o;
-
-  /* adjust range */
-
-  function adjustRange( r )
-  {
-
-    if( _.numberIs( ranges[ r ] ) )
-    ranges[ r ] = [ 0, ranges[ r ] ];
-
-    if( !_.longIs( ranges[ r ] ) )
-    throw _.err( 'Expects range as array :', ranges[ r ] );
-
-    _.assert( ranges[ r ].length === 2 );
-    _.assert( _.numberIs( ranges[ r ][ 0 ] ) );
-    _.assert( _.numberIs( ranges[ r ][ 1 ] ) );
-
-    if( _.numberIsInfinite( ranges[ r ][ 0 ] ) )
-    ranges[ r ][ 0 ] = 1;
-    if( _.numberIsInfinite( ranges[ r ][ 1 ] ) )
-    ranges[ r ][ 1 ] = 1;
-
-    o.iterationNumber *= ranges[ r ][ 1 ] - ranges[ r ][ 0 ];
-
-  }
-
-}
-
+// /* qqq2 : split
+// - _eachInMultiRange
+// - whileInMultiRange
+// - eachInMultiRange
+// */
 //
-
-/* Dmytro : body that keep all features of previous routine, not used */
-
-function eachInMultiRange_body( o )
-{
-
-  if( o.estimate )
-  {
-    if( !o.ranges.length )
-    return 0;
-    return { length : o.iterationNumber };
-  }
-
-  let last = o.ranges.length-1;
-  let indexFlat = 0;
-  let indexNd = [];
-  for( let r = 0 ; r < o.ranges.length ; r++ )
-  {
-    indexNd[ r ] = o.ranges[ r ][ 0 ];
-    if( o.ranges[ r ][ 1 ] <= o.ranges[ r ][ 0 ] )
-    return 0;
-  }
-
-  while( indexNd[ last ] < o.ranges[ last ][ 1 ] )
-  {
-
-    let r = getValue( indexNd );
-    if( o.result )
-    o.result[ indexFlat ] = r;
-
-    let res = o.onEach.call( o, r, indexFlat );
-
-    if( o.breaking && res === false )
-    break;
-
-    indexFlat += 1;
-
-    let c = 0;
-    do
-    {
-      if( c >= o.ranges.length )
-      break;
-      if( c > 0 )
-      indexNd[ c-1 ] = o.ranges[ c-1 ][ 0 ];
-
-      if( o.delta )
-      {
-        _.assert
-        (
-          _.numberIsFinite( o.delta[ c ] ) && o.delta[ c ] > 0,
-          `delta must contain only positive numbers, incorrect element : ${ o.delta[ c ] }`
-        );
-        indexNd[ c ] += o.delta[ c ];
-      }
-      else
-      {
-        indexNd[ c ] += 1;
-      }
-
-      c += 1;
-    }
-    while( indexNd[ c-1 ] >= o.ranges[ c-1 ][ 1 ] );
-
-  }
-
-  /* */
-
-  if( o.result )
-  return o.result
-  else
-  return indexFlat;
-
-  /* */
-
-  function getValue( arg )
-  {
-    if( o.names )
-    {
-      let result = Object.create( null );
-      for( let i = 0 ; i < o.names.length ; i++ )
-      result[ o.names[ i ] ] = arg[ i ];
-      return result;
-    }
-    else
-    {
-      return arg.slice();
-    }
-  }
-
-}
-
-eachInMultiRange_body.defaults =
-{
-  result : null,
-  ranges : null,
-  delta : null, /* Dmytro : maybe it not needs */
-  onEach : null,
-  estimate : 0, /* Dmytro : maybe it not needs */
-  breaking : 0,
-}
+// function eachInMultiRange( o ) /* xxx : rename, later */
+// {
+//
+//   if( !o.onEach )
+//   o.onEach = function( e )
+//   {
+//     console.log( e );
+//   }
+//
+//   _.routineOptions( eachInMultiRange, o );
+//   _.assert( _.objectIs( o ) )
+//   _.assert( _.arrayIs( o.ranges ) || _.objectIs( o.ranges ), 'Expects o.ranges as array or object' )
+//   _.assert( _.routineIs( o.onEach ), 'Expects o.onEach as routine' )
+//   _.assert( !o.delta || _.strType( o.delta ) === _.strType( o.ranges ), 'o.delta must be same type as ranges' );
+//
+//   /* */
+//
+//   let iterationNumber = 1;
+//   let l = 0;
+//   let delta = _.objectIs( o.delta ) ? [] : null;
+//   let ranges = [];
+//   let names = null;
+//   if( _.objectIs( o.ranges ) )
+//   {
+//     _.assert( _.objectIs( o.delta ) || !o.delta );
+//
+//     names = [];
+//     let i = 0;
+//     for( let r in o.ranges )
+//     {
+//       names[ i ] = r;
+//       ranges[ i ] = o.ranges[ r ];
+//       if( o.delta )
+//       {
+//         if( !o.delta[ r ] )
+//         throw _.err( 'no delta for', r );
+//         delta[ i ] = o.delta[ r ];
+//       }
+//       i += 1;
+//     }
+//
+//     l = names.length;
+//
+//   }
+//   else
+//   {
+//     // debugger;
+//     // ranges = o.ranges.slice();
+//     // ranges = _.cloneJust( o.ranges ); // xxx
+//     // ranges = _.entityMake();
+//
+//     _.assert( _.arrayIs( o.ranges ) );
+//     ranges = [];
+//     for( let i = 0 ; i < o.ranges.length ; i++ )
+//     {
+//       ranges[ i ] = _.arrayIs( o.ranges[ i ] ) ? o.ranges[ i ].slice() : o.ranges[ i ];
+//     }
+//
+//     delta = _.longIs( o.delta ) ? o.delta.slice() : null;
+//     _.assert( !delta || ranges.length === delta.length, 'delta must be same length as ranges' );
+//     l = o.ranges.length;
+//   }
+//
+//   let last = ranges.length-1;
+//
+//   /* adjust range */
+//
+//   function adjustRange( r )
+//   {
+//
+//     if( _.numberIs( ranges[ r ] ) )
+//     ranges[ r ] = [ 0, ranges[ r ] ];
+//
+//     if( !_.longIs( ranges[ r ] ) )
+//     throw _.err( 'Expects range as array :', ranges[ r ] );
+//
+//     _.assert( ranges[ r ].length === 2 );
+//     _.assert( _.numberIs( ranges[ r ][ 0 ] ) );
+//     _.assert( _.numberIs( ranges[ r ][ 1 ] ) );
+//
+//     if( _.numberIsInfinite( ranges[ r ][ 0 ] ) )
+//     ranges[ r ][ 0 ] = 1;
+//     if( _.numberIsInfinite( ranges[ r ][ 1 ] ) )
+//     ranges[ r ][ 1 ] = 1;
+//
+//     iterationNumber *= ranges[ r ][ 1 ] - ranges[ r ][ 0 ];
+//
+//   }
+//
+//   if( _.objectIs( ranges ) )
+//   for( let r in ranges )
+//   adjustRange( r );
+//   else
+//   for( let r = 0 ; r < ranges.length ; r++ )
+//   adjustRange( r );
+//
+//   /* estimate */
+//
+//   if( o.estimate )
+//   {
+//
+//     if( !ranges.length )
+//     return 0;
+//
+//     return { length : iterationNumber };
+//
+//   }
+//
+//   /* */
+//
+//   function getValue( arg ){ return arg.slice(); };
+//   if( names )
+//   getValue = function( arg )
+//   {
+//     let result = Object.create( null );
+//     for( let i = 0 ; i < names.length ; i++ )
+//     result[ names[ i ] ] = arg[ i ];
+//     return result;
+//   }
+//
+//   /* */
+//
+//   let indexFlat = 0;
+//   let indexNd = [];
+//   for( let r = 0 ; r < ranges.length ; r++ )
+//   {
+//     indexNd[ r ] = ranges[ r ][ 0 ];
+//     if( ranges[ r ][ 1 ] <= ranges[ r ][ 0 ] )
+//     return 0;
+//   }
+//
+//   /* */
+//
+//   while( indexNd[ last ] < ranges[ last ][ 1 ] )
+//   {
+//
+//     let r = getValue( indexNd );
+//     if( o.result )
+//     o.result[ indexFlat ] = r;
+//
+//     let res = o.onEach.call( o, r, indexFlat );
+//
+//     if( res === false )
+//     break;
+//
+//     indexFlat += 1;
+//
+//     let c = 0;
+//     do
+//     {
+//       if( c >= ranges.length )
+//       break;
+//       if( c > 0 )
+//       indexNd[ c-1 ] = ranges[ c-1 ][ 0 ];
+//       if( delta )
+//       {
+//         _.assert( _.numberIsFinite( delta[ c ] ) && delta[ c ] > 0, 'delta must contain only positive numbers, incorrect element:', delta[ c ] );
+//         indexNd[ c ] += delta[ c ];
+//       }
+//       else
+//       indexNd[ c ] += 1;
+//       c += 1;
+//     }
+//     while( indexNd[ c-1 ] >= ranges[ c-1 ][ 1 ] );
+//
+//   }
+//
+//   /* */
+//
+//   if( o.result )
+//   return o.result
+//   else
+//   return indexFlat;
+// }
+//
+// eachInMultiRange.defaults =
+// {
+//   result : null,
+//   ranges : null,
+//   delta : null,
+//   onEach : null,
+//   estimate : 0,
+// }
+//
+// //
+//
+// /* Dmytro : pre that keep all features of previous routine */
+//
+// function eachInMultiRange_pre( routine, arg )
+// {
+//
+//   let o = arg[ 0 ];
+//
+//   if( !o.onEach )
+//   o.onEach = function( e )
+//   {
+//     console.log( e );
+//   }
+//
+//   _.routineOptions( routine, o );
+//   _.assert( _.objectIs( o ) )
+//   _.assert( _.arrayIs( o.ranges ) || _.objectIs( o.ranges ), 'Expects o.ranges as array or object' )
+//   _.assert( _.routineIs( o.onEach ), 'Expects o.onEach as routine' )
+//   _.assert( !o.delta || _.strType( o.delta ) === _.strType( o.ranges ), 'o.delta must be same type as ranges' );
+//
+//   o.iterationNumber = 1;
+//   let delta = _.objectIs( o.delta ) ? [] : null;
+//   let ranges = [];
+//   o.names = null;
+//
+//   /* */
+//
+//   if( _.objectIs( o.ranges ) )
+//   {
+//     _.assert( _.objectIs( o.delta ) || !o.delta );
+//
+//     o.names = [];
+//     let i = 0;
+//     for( let r in o.ranges )
+//     {
+//       o.names[ i ] = r;
+//       ranges[ i ] = o.ranges[ r ];
+//       if( o.delta )
+//       {
+//         if( !o.delta[ r ] )
+//         throw _.err( 'no delta for', r );
+//         delta[ i ] = o.delta[ r ];
+//       }
+//       i += 1;
+//     }
+//
+//   }
+//   else
+//   {
+//
+//     _.assert( _.longIs( o.ranges ) );
+//     ranges = [];
+//     for( let i = 0 ; i < o.ranges.length ; i++ )
+//     {
+//       ranges[ i ] = _.longIs( o.ranges[ i ] ) ? o.ranges[ i ].slice() : o.ranges[ i ];
+//     }
+//
+//     delta = _.longIs( o.delta ) ? o.delta.slice() : null;
+//     _.assert( !delta || ranges.length === delta.length, 'delta must be same length as ranges' );
+//   }
+//
+//   if( _.objectIs( ranges ) )
+//   for( let r in ranges )
+//   adjustRange( r );
+//   else
+//   for( let r = 0 ; r < ranges.length ; r++ )
+//   adjustRange( r );
+//
+//   o.ranges = ranges
+//   o.delta = delta;
+//   return o;
+//
+//   /* adjust range */
+//
+//   function adjustRange( r )
+//   {
+//
+//     if( _.numberIs( ranges[ r ] ) )
+//     ranges[ r ] = [ 0, ranges[ r ] ];
+//
+//     if( !_.longIs( ranges[ r ] ) )
+//     throw _.err( 'Expects range as array :', ranges[ r ] );
+//
+//     _.assert( ranges[ r ].length === 2 );
+//     _.assert( _.numberIs( ranges[ r ][ 0 ] ) );
+//     _.assert( _.numberIs( ranges[ r ][ 1 ] ) );
+//
+//     if( _.numberIsInfinite( ranges[ r ][ 0 ] ) )
+//     ranges[ r ][ 0 ] = 1;
+//     if( _.numberIsInfinite( ranges[ r ][ 1 ] ) )
+//     ranges[ r ][ 1 ] = 1;
+//
+//     o.iterationNumber *= ranges[ r ][ 1 ] - ranges[ r ][ 0 ];
+//
+//   }
+//
+// }
+//
+// //
+//
+// /* Dmytro : body that keep all features of previous routine, not used */
+//
+// function eachInMultiRange_body( o )
+// {
+//
+//   if( o.estimate )
+//   {
+//     if( !o.ranges.length )
+//     return 0;
+//     return { length : o.iterationNumber };
+//   }
+//
+//   let last = o.ranges.length-1;
+//   let indexFlat = 0;
+//   let indexNd = [];
+//   for( let r = 0 ; r < o.ranges.length ; r++ )
+//   {
+//     indexNd[ r ] = o.ranges[ r ][ 0 ];
+//     if( o.ranges[ r ][ 1 ] <= o.ranges[ r ][ 0 ] )
+//     return 0;
+//   }
+//
+//   while( indexNd[ last ] < o.ranges[ last ][ 1 ] )
+//   {
+//
+//     let r = getValue( indexNd );
+//     if( o.result )
+//     o.result[ indexFlat ] = r;
+//
+//     let res = o.onEach.call( o, r, indexFlat );
+//
+//     if( o.breaking && res === false )
+//     break;
+//
+//     indexFlat += 1;
+//
+//     let c = 0;
+//     do
+//     {
+//       if( c >= o.ranges.length )
+//       break;
+//       if( c > 0 )
+//       indexNd[ c-1 ] = o.ranges[ c-1 ][ 0 ];
+//
+//       if( o.delta )
+//       {
+//         _.assert
+//         (
+//           _.numberIsFinite( o.delta[ c ] ) && o.delta[ c ] > 0,
+//           `delta must contain only positive numbers, incorrect element : ${ o.delta[ c ] }`
+//         );
+//         indexNd[ c ] += o.delta[ c ];
+//       }
+//       else
+//       {
+//         indexNd[ c ] += 1;
+//       }
+//
+//       c += 1;
+//     }
+//     while( indexNd[ c-1 ] >= o.ranges[ c-1 ][ 1 ] );
+//
+//   }
+//
+//   /* */
+//
+//   if( o.result )
+//   return o.result
+//   else
+//   return indexFlat;
+//
+//   /* */
+//
+//   function getValue( arg )
+//   {
+//     if( o.names )
+//     {
+//       let result = Object.create( null );
+//       for( let i = 0 ; i < o.names.length ; i++ )
+//       result[ o.names[ i ] ] = arg[ i ];
+//       return result;
+//     }
+//     else
+//     {
+//       return arg.slice();
+//     }
+//   }
+//
+// }
+//
+// eachInMultiRange_body.defaults =
+// {
+//   result : null,
+//   ranges : null,
+//   delta : null, /* Dmytro : maybe it not needs */
+//   onEach : null,
+//   estimate : 0, /* Dmytro : maybe it not needs */
+//   breaking : 0,
+// }
 
 //
 
@@ -1420,7 +1420,7 @@ let Routines =
 
   eachInRange,
   eachInManyRanges,
-  eachInMultiRange, /* qqq : light coverage required */
+  // eachInMultiRange, /* qqq : light coverage required */
 
   whileInMultiRange_,
   eachInMultiRange_,
