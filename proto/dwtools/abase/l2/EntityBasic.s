@@ -663,6 +663,7 @@ function eachInMultiRange_body_( o )
   let result = true;
   let indexFlat = 0;
   let indexNd = [];
+
   for( let r = 0 ; r < o.ranges.length ; r++ )
   {
     indexNd[ r ] = o.ranges[ r ][ 0 ];
@@ -670,16 +671,22 @@ function eachInMultiRange_body_( o )
     return 0;
   }
 
+  let oResult = o.result ? 1 : 0;
+  let oBreaking = o.breaking ? 2 : 0;
+  let iterateList =
+  [
+    iterate1R0B0, iterate1R1B0, iterate1R0B1, iterate1R1B1,
+    iterate2R0B0, iterate2R1B0, iterate2R0B1, iterate2R1B1,
+    iterate3R0B0, iterate3R1B0, iterate3R0B1, iterate3R1B1,
+    iterateNR0B0, iterateNR1B0, iterateNR0B1, iterateNR1B1,
+  ];
+
   if( o.names )
   iterateMap();
-  else if( indexNd.length === 1 )
-  iterate1();
-  else if( indexNd.length === 2 )
-  iterate2();
-  else if( indexNd.length === 3 )
-  iterate3();
+  else if( o.ranges.length <= 3 )
+  iterateList[ ( o.ranges.length - 1 ) * 4 + oResult + oBreaking ]();
   else
-  iterateN();
+  iterateList[ iterateList.length - 4 + oResult + oBreaking ]();
 
   if( o.result )
   return o.result
@@ -720,61 +727,178 @@ function eachInMultiRange_body_( o )
 
   /* */
 
-  function iterate1()
+  function iterate1R0B0()
   {
-
-    if( o.result && o.breaking )
+    for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r++ )
     {
-      for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r++ )
-      {
-        indexNd[ 0 ] = r;
-
-        o.result[ indexFlat ] = indexNd.slice();
-        result = o.onEach.call( o, indexNd, indexFlat );
-        indexFlat += 1;
-      }
+      indexNd[ 0 ] = r;
+      o.onEach.call( o, indexNd, indexFlat );
+      indexFlat += 1;
     }
-    else if( o.result && !o.breaking )
+  }
+
+  function iterate1R1B0()
+  {
+    for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r++ )
     {
-      for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r++ )
-      {
-        indexNd[ 0 ] = r;
+      indexNd[ 0 ] = r;
 
-        o.result[ indexFlat ] = indexNd.slice();
-        o.onEach.call( o, indexNd, indexFlat );
-        indexFlat += 1;
-      }
+      o.result[ indexFlat ] = indexNd.slice();
+      o.onEach.call( o, indexNd, indexFlat );
+      indexFlat += 1;
     }
-    else if( !o.result && o.breaking )
+  }
+
+  function iterate1R0B1()
+  {
+    for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r++ )
     {
-      for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r++ )
-      {
-        indexNd[ 0 ] = r;
+      indexNd[ 0 ] = r;
 
-        result = o.onEach.call( o, indexNd, indexFlat );
-        indexFlat += 1;
-      }
+      result = o.onEach.call( o, indexNd, indexFlat );
+      indexFlat += 1;
     }
-    else if( !o.result && !o.breaking )
+  }
+
+  function iterate1R1B1()
+  {
+    for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r++ )
     {
-      for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r++ )
-      {
-        indexNd[ 0 ] = r;
+      indexNd[ 0 ] = r;
 
-        o.onEach.call( o, indexNd, indexFlat );
-        indexFlat += 1;
-      }
+      o.result[ indexFlat ] = indexNd.slice();
+      result = o.onEach.call( o, indexNd, indexFlat );
+      indexFlat += 1;
     }
-
   }
 
   /* */
 
-  function iterate2()
+  function iterate2R0B0()
   {
-
-    if( o.result && o.breaking )
+    for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] ; c++ )
     {
+      indexNd[ 1 ] = c;
+      for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r++ )
+      {
+        indexNd[ 0 ] = r;
+        o.onEach.call( o, indexNd, indexFlat );
+        indexFlat += 1;
+      }
+    }
+  }
+
+  function iterate2R1B0()
+  {
+    for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] ; c++ )
+    {
+      indexNd[ 1 ] = c;
+      for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r++ )
+      {
+        indexNd[ 0 ] = r;
+        o.result[ indexFlat ] = indexNd.slice();
+        o.onEach.call( o, indexNd, indexFlat );
+        indexFlat += 1;
+      }
+    }
+  }
+
+  function iterate2R0B1()
+  {
+    for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && result !== false ; c++ )
+    {
+      indexNd[ 1 ] = c;
+      for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r++ )
+      {
+        indexNd[ 0 ] = r;
+
+        result = o.onEach.call( o, indexNd, indexFlat );
+        indexFlat += 1;
+      }
+    }
+  }
+
+  function iterate2R1B1()
+  {
+    for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && result !== false ; c++ )
+    {
+      indexNd[ 1 ] = c;
+      for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r++ )
+      {
+        indexNd[ 0 ] = r;
+
+        o.result[ indexFlat ] = indexNd.slice();
+        result = o.onEach.call( o, indexNd, indexFlat );
+        indexFlat += 1;
+      }
+    }
+  }
+
+  /* */
+
+  function iterate3R0B0()
+  {
+    for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] ; d++ )
+    {
+      indexNd[ 2 ] = d;
+      for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] ; c++ )
+      {
+        indexNd[ 1 ] = c;
+        for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r++ )
+        {
+          indexNd[ 0 ] = r;
+
+          o.onEach.call( o, indexNd, indexFlat );
+          indexFlat += 1;
+        }
+      }
+    }
+  }
+
+  function iterate3R1B0()
+  {
+    for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] ; d++ )
+    {
+      indexNd[ 2 ] = d;
+      for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] ; c++ )
+      {
+        indexNd[ 1 ] = c;
+        for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r++ )
+        {
+          indexNd[ 0 ] = r;
+
+          o.result[ indexFlat ] = indexNd.slice();
+          o.onEach.call( o, indexNd, indexFlat );
+          indexFlat += 1;
+        }
+      }
+    }
+  }
+
+  function iterate3R0B1()
+  {
+    for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] && result !== false ; d++ )
+    {
+      indexNd[ 2 ] = d;
+      for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && result !== false ; c++ )
+      {
+        indexNd[ 1 ] = c;
+        for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r++ )
+        {
+          indexNd[ 0 ] = r;
+
+          result = o.onEach.call( o, indexNd, indexFlat );
+          indexFlat += 1;
+        }
+      }
+    }
+  }
+
+  function iterate3R1B1()
+  {
+    for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] && result !== false ; d++ )
+    {
+      indexNd[ 2 ] = d;
       for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && result !== false ; c++ )
       {
         indexNd[ 1 ] = c;
@@ -788,175 +912,50 @@ function eachInMultiRange_body_( o )
         }
       }
     }
-    else if( o.result && !o.breaking )
-    {
-      for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] ; c++ )
-      {
-        indexNd[ 1 ] = c;
-        for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r++ )
-        {
-          indexNd[ 0 ] = r;
-          o.result[ indexFlat ] = indexNd.slice();
-          o.onEach.call( o, indexNd, indexFlat );
-          indexFlat += 1;
-        }
-      }
-    }
-    else if( !o.result && o.breaking )
-    {
-      for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && result !== false ; c++ )
-      {
-        indexNd[ 1 ] = c;
-        for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r++ )
-        {
-          indexNd[ 0 ] = r;
-
-          result = o.onEach.call( o, indexNd, indexFlat );
-          indexFlat += 1;
-        }
-      }
-    }
-    else if( !o.result && !o.breaking )
-    {
-      for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] ; c++ )
-      {
-        indexNd[ 1 ] = c;
-        for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r++ )
-        {
-          indexNd[ 0 ] = r;
-          o.onEach.call( o, indexNd, indexFlat );
-          indexFlat += 1;
-        }
-      }
-    }
-
   }
 
   /* */
 
-  function iterate3()
+  function iterateNR0B0()
   {
-
-    if( o.result && o.breaking )
+    do
     {
-      for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] && result !== false ; d++ )
-      {
-        indexNd[ 2 ] = d;
-        for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && result !== false ; c++ )
-        {
-          indexNd[ 1 ] = c;
-          for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r++ )
-          {
-            indexNd[ 0 ] = r;
-
-            o.result[ indexFlat ] = indexNd.slice();
-            result = o.onEach.call( o, indexNd, indexFlat );
-            indexFlat += 1;
-          }
-        }
-      }
+      o.onEach.call( o, indexNd, indexFlat );
     }
-    else if( o.result && !o.breaking )
-    {
-      for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] ; d++ )
-      {
-        indexNd[ 2 ] = d;
-        for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] ; c++ )
-        {
-          indexNd[ 1 ] = c;
-          for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r++ )
-          {
-            indexNd[ 0 ] = r;
-
-            o.result[ indexFlat ] = indexNd.slice();
-            o.onEach.call( o, indexNd, indexFlat );
-            indexFlat += 1;
-          }
-        }
-      }
-    }
-    if( !o.result && o.breaking )
-    {
-      for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] && result !== false ; d++ )
-      {
-        indexNd[ 2 ] = d;
-        for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && result !== false ; c++ )
-        {
-          indexNd[ 1 ] = c;
-          for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r++ )
-          {
-            indexNd[ 0 ] = r;
-
-            result = o.onEach.call( o, indexNd, indexFlat );
-            indexFlat += 1;
-          }
-        }
-      }
-    }
-    else if( !o.result && !o.breaking )
-    {
-      for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] ; d++ )
-      {
-        indexNd[ 2 ] = d;
-        for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] ; c++ )
-        {
-          indexNd[ 1 ] = c;
-          for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r++ )
-          {
-            indexNd[ 0 ] = r;
-
-            o.onEach.call( o, indexNd, indexFlat );
-            indexFlat += 1;
-          }
-        }
-      }
-    }
-
+    while( inc() )
   }
 
-  /* */
-
-  function iterateN()
+  function iterateNR1B0()
   {
-    if( o.result && o.breaking )
+    do
     {
-      do
-      {
-        o.result[ indexFlat ] = indexNd.slice();
-        let res = o.onEach.call( o, indexNd, indexFlat );
-        if(res === false )
-        break;
-      }
-      while( inc() )
+      o.result[ indexFlat ] = indexNd.slice();
+      o.onEach.call( o, indexNd, indexFlat );
     }
-    else if( o.result && !o.breaking )
-    {
-      do
-      {
-        o.result[ indexFlat ] = indexNd.slice();
-        o.onEach.call( o, indexNd, indexFlat );
-      }
-      while( inc() )
-    }
-    else if( !o.result && o.breaking )
-    {
-      do
-      {
-        let res = o.onEach.call( o, indexNd, indexFlat );
-        if(res === false )
-        break;
-      }
-      while( inc() )
-    }
-    else if( !o.result && !o.breaking )
-    {
-      do
-      {
-        o.onEach.call( o, indexNd, indexFlat );
-      }
-      while( inc() )
-    }
+    while( inc() )
+  }
 
+  function iterateNR0B1()
+  {
+    do
+    {
+      let res = o.onEach.call( o, indexNd, indexFlat );
+      if(res === false )
+      break;
+    }
+    while( inc() )
+  }
+
+  function iterateNR1B1()
+  {
+    do
+    {
+      o.result[ indexFlat ] = indexNd.slice();
+      let res = o.onEach.call( o, indexNd, indexFlat );
+      if(res === false )
+      break;
+    }
+    while( inc() )
   }
 
   /* */
