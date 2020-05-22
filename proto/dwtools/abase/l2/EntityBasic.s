@@ -660,7 +660,7 @@ function eachInMultiRange_pre_( routine, arg )
 function eachInMultiRange_body_( o )
 {
 
-  let breaking = 0;
+  let result = true;
   let indexFlat = 0;
   let indexNd = [];
   for( let r = 0 ; r < o.ranges.length ; r++ )
@@ -725,23 +725,18 @@ function eachInMultiRange_body_( o )
 
     if( o.result && o.breaking )
     {
-      for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && !breaking ; r++ )
+      for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r++ )
       {
         indexNd[ 0 ] = r;
 
         o.result[ indexFlat ] = indexNd.slice();
-        let result = o.onEach.call( o, indexNd, indexFlat );
-        if( result === false )
-        {
-          breaking = 1;
-          break;
-        }
+        result = o.onEach.call( o, indexNd, indexFlat );
         indexFlat += 1;
       }
     }
     else if( o.result && !o.breaking )
     {
-      for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && !breaking ; r++ )
+      for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r++ )
       {
         indexNd[ 0 ] = r;
 
@@ -752,22 +747,17 @@ function eachInMultiRange_body_( o )
     }
     else if( !o.result && o.breaking )
     {
-      for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && !breaking ; r++ )
+      for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r++ )
       {
         indexNd[ 0 ] = r;
 
-        let result = o.onEach.call( o, indexNd, indexFlat );
-        if( result === false )
-        {
-          breaking = 1;
-          break;
-        }
+        result = o.onEach.call( o, indexNd, indexFlat );
         indexFlat += 1;
       }
     }
     else if( !o.result && !o.breaking )
     {
-      for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && !breaking ; r++ )
+      for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r++ )
       {
         indexNd[ 0 ] = r;
 
@@ -785,20 +775,15 @@ function eachInMultiRange_body_( o )
 
     if( o.result && o.breaking )
     {
-      for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && !breaking ; c++ )
+      for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && result !== false ; c++ )
       {
         indexNd[ 1 ] = c;
-        for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && !breaking ; r++ )
+        for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r++ )
         {
           indexNd[ 0 ] = r;
 
           o.result[ indexFlat ] = indexNd.slice();
-          let result = o.onEach.call( o, indexNd, indexFlat );
-          if( result === false )
-          {
-            breaking = 1;
-            break;
-          }
+          result = o.onEach.call( o, indexNd, indexFlat );
           indexFlat += 1;
         }
       }
@@ -819,19 +804,14 @@ function eachInMultiRange_body_( o )
     }
     else if( !o.result && o.breaking )
     {
-      for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && !breaking ; c++ )
+      for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && result !== false ; c++ )
       {
         indexNd[ 1 ] = c;
-        for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && !breaking ; r++ )
+        for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r++ )
         {
           indexNd[ 0 ] = r;
 
-          let result = o.onEach.call( o, indexNd, indexFlat );
-          if( result === false )
-          {
-            breaking = 1;
-            break;
-          }
+          result = o.onEach.call( o, indexNd, indexFlat );
           indexFlat += 1;
         }
       }
@@ -859,23 +839,18 @@ function eachInMultiRange_body_( o )
 
     if( o.result && o.breaking )
     {
-      for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] && !breaking ; d++ )
+      for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] && result !== false ; d++ )
       {
         indexNd[ 2 ] = d;
-        for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && !breaking ; c++ )
+        for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && result !== false ; c++ )
         {
           indexNd[ 1 ] = c;
-          for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && !breaking ; r++ )
+          for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r++ )
           {
             indexNd[ 0 ] = r;
 
             o.result[ indexFlat ] = indexNd.slice();
-            let result = o.onEach.call( o, indexNd, indexFlat );
-            if( result === false )
-            {
-              breaking = 1;
-              break;
-            }
+            result = o.onEach.call( o, indexNd, indexFlat );
             indexFlat += 1;
           }
         }
@@ -883,13 +858,13 @@ function eachInMultiRange_body_( o )
     }
     else if( o.result && !o.breaking )
     {
-      for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] && !breaking ; d++ )
+      for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] ; d++ )
       {
         indexNd[ 2 ] = d;
-        for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && !breaking ; c++ )
+        for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] ; c++ )
         {
           indexNd[ 1 ] = c;
-          for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && !breaking ; r++ )
+          for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r++ )
           {
             indexNd[ 0 ] = r;
 
@@ -902,22 +877,17 @@ function eachInMultiRange_body_( o )
     }
     if( !o.result && o.breaking )
     {
-      for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] && !breaking ; d++ )
+      for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] && result !== false ; d++ )
       {
         indexNd[ 2 ] = d;
-        for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && !breaking ; c++ )
+        for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && result !== false ; c++ )
         {
           indexNd[ 1 ] = c;
-          for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && !breaking ; r++ )
+          for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && result !== false ; r++ )
           {
             indexNd[ 0 ] = r;
 
             let result = o.onEach.call( o, indexNd, indexFlat );
-            if( result === false )
-            {
-              breaking = 1;
-              break;
-            }
             indexFlat += 1;
           }
         }
@@ -925,13 +895,13 @@ function eachInMultiRange_body_( o )
     }
     else if( !o.result && !o.breaking )
     {
-      for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] && !breaking ; d++ )
+      for( let d = o.ranges[ 2 ][ 0 ] ; d < o.ranges[ 2 ][ 1 ] ; d++ )
       {
         indexNd[ 2 ] = d;
-        for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] && !breaking ; c++ )
+        for( let c = o.ranges[ 1 ][ 0 ] ; c < o.ranges[ 1 ][ 1 ] ; c++ )
         {
           indexNd[ 1 ] = c;
-          for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] && !breaking ; r++ )
+          for( let r = o.ranges[ 0 ][ 0 ] ; r < o.ranges[ 0 ][ 1 ] ; r++ )
           {
             indexNd[ 0 ] = r;
 
