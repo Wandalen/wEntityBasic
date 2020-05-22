@@ -372,7 +372,7 @@ eachInMultiRange.defaults =
 
 /* Dmytro : pre that keep all features of previous routine */
 
-function eachInMultiRange_pre( routine, arg ) // ( o )
+function eachInMultiRange_pre( routine, arg )
 {
 
   let o = arg[ 0 ];
@@ -490,7 +490,6 @@ function eachInMultiRange_body( o )
     if( o.ranges[ r ][ 1 ] <= o.ranges[ r ][ 0 ] )
     return 0;
   }
-
 
   while( indexNd[ last ] < o.ranges[ last ][ 1 ] )
   {
@@ -656,6 +655,7 @@ function eachInMultiRange_pre_( routine, arg )
 //
 
 /* Dmytro : body without options `delta` and `estimate`, it is used in new routines */
+/* qqq2 : very bad! */
 
 function eachInMultiRange_body_( o )
 {
@@ -736,12 +736,12 @@ eachInMultiRange_body_.defaults =
 //
 
 let whileInMultiRange_ = _.routineFromPreAndBody( eachInMultiRange_pre_, eachInMultiRange_body_ );
-
 whileInMultiRange_.defaults.breaking = 1;
 
 //
 
 let eachInMultiRange_ = _.routineFromPreAndBody( eachInMultiRange_pre_, eachInMultiRange_body_ );
+eachInMultiRange_.defaults.breaking = 0;
 
 //
 
