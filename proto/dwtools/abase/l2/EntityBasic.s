@@ -682,7 +682,7 @@ function eachInMultiRange_body_( o )
   }
   else if( o.ranges.length <= 3 )
   {
-    let result = iterateList[ ( o.ranges.length - 1 ) * 4 + oResult + oBreaking ]();
+    let result = iterate[ ( o.ranges.length - 1 ) * 4 + oResult + oBreaking ]();
     if( result === false )
     return 0;
   }
