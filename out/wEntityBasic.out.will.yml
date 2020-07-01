@@ -1479,6 +1479,4 @@ module:
       ../.im.will.yml:
         hash: adcd677bfdfe08540a19f008de1ef352
         size: 4945
-      wEntityBasic.out.will.yml:
-        hash: 2e082fa2ac36c43080aef64107c93ef7
-        size: 37648
+      wEntityBasic.out.will.yml: *ref_0
