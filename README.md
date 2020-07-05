@@ -1,5 +1,5 @@
 
-# wEntityBasic [![Build Status](https://travis-ci.org/Wandalen/wEntityBasic.svg?branch=master)](https://travis-ci.org/Wandalen/wEntityBasic)
+# module::EntityBasic [![Status](https://github.com/Wandalen/wEntityBasic/workflows/Test/badge.svg)](https://github.com/Wandalen/wEntityBasic}/actions?query=workflow%3ATest)
 
 Collection of routines for processing heterogenous data.
 
