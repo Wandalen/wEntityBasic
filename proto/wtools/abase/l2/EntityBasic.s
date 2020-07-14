@@ -8,10 +8,6 @@
  */
 
 /**
- * @file l3/Entity.s.
- */
-
-/**
  * Collection of routines for processing heterogenous data.
  * @namespace Tools.EntityFundamentals
  * @memberof module:Tools/base/EntityFundamentals
