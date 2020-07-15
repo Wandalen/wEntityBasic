@@ -6,5 +6,5 @@ Collection of routines for processing heterogenous data.
 ## Try out
 ```
 npm install
-node sample/Sample.js
+node sample/Sample.s
 ```
