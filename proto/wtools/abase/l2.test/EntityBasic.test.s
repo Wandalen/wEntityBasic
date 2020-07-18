@@ -4349,7 +4349,7 @@ function entityHasUndef( test )
 let Self =
 {
 
-  name : 'Tools.base.l3.Entity',
+  name : 'Tools.l3.Entity',
   silencing : 1,
   // verbosity : 4,
   // negativity : 3,
