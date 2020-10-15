@@ -3,12 +3,12 @@
 'use strict';
 
 /**
- * Collection of routines for processing heterogenous data.
+ * Collection of cross-platform routines for processing heterogenous data.
  * @module Tools/base/EntityFundamentals
  */
 
 /**
- * Collection of routines for processing heterogenous data.
+ * Collection of cross-platform routines for processing heterogenous data.
  * @namespace Tools.EntityFundamentals
  * @memberof module:Tools/base/EntityFundamentals
  */
@@ -170,7 +170,7 @@ eachInManyRanges.defaults = Object.create( eachInRange.defaults )
 
 // //
 //
-// /* qqq2 : split body and pre */
+// /* qqq2 : split body and head */
 // /* qqq2 : improve formatting, put all subroutines to the end of the routine */
 // /* qqq2 : implement special code for 2, 3 dimensional cases */
 //
@@ -366,9 +366,9 @@ eachInManyRanges.defaults = Object.create( eachInRange.defaults )
 //
 // //
 //
-// /* Dmytro : pre that keep all features of previous routine */
+// /* Dmytro : head that keep all features of previous routine */
 //
-// function eachInMultiRange_pre( routine, arg )
+// function eachInMultiRange_head( routine, arg )
 // {
 //
 //   let o = arg[ 0 ];
@@ -567,7 +567,7 @@ eachInManyRanges.defaults = Object.create( eachInRange.defaults )
 
 //
 
-/* Dmytro : pre without options `delta` and `estimate`, used in routines */
+/* Dmytro : head without options `delta` and `estimate`, used in routines */
 
 function eachInMultiRange_pre_( routine, arg )
 {
@@ -1142,12 +1142,12 @@ eachInMultiRange_body_.defaults =
 
 //
 
-let whileInMultiRange_ = _.routineFromPreAndBody( eachInMultiRange_pre_, eachInMultiRange_body_ );
+let whileInMultiRange_ = _.routineUnite( eachInMultiRange_pre_, eachInMultiRange_body_ );
 whileInMultiRange_.defaults.breaking = 1;
 
 //
 
-let eachInMultiRange_ = _.routineFromPreAndBody( eachInMultiRange_pre_, eachInMultiRange_body_ );
+let eachInMultiRange_ = _.routineUnite( eachInMultiRange_pre_, eachInMultiRange_body_ );
 eachInMultiRange_.defaults.breaking = 0;
 
 //

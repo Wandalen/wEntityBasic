@@ -1,7 +1,7 @@
 {
   "name" : "wentitybasic",
   "version" : "0.3.162",
-  "description" : "Collection of routines for processing heterogenous data.",
+  "description" : "Collection of cross-platform routines for processing heterogenous data.",
   "author" : "Kostiantyn Wandalen <wanalen@01.school>",
   "license" : "MIT",
   "main" : "proto/wtools/abase/l2/EntityBasic.s",

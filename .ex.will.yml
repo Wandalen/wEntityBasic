@@ -2,7 +2,7 @@
 about :
 
   name : 'wEntityBasic'
-  description : 'Collection of routines for processing heterogenous data.'
+  description : 'Collection of cross-platform routines for processing heterogenous data.'
   version : '0.4.0'
   enabled : 1
   interpreters :
