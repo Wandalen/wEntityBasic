@@ -15,7 +15,6 @@ if( typeof module !== 'undefined' )
 
 let _global = _global_;
 let _ = _global_.wTools;
-let Self = {};
 
 // --
 // tests
@@ -4243,12 +4242,12 @@ function entityCoerceTo( test )
   var expected = typeof( ins );
   test.identical( got, expected );
 
-  test.case = 'array and string';
-  var src = [ 1, 2, 3 ];
-  var ins =  'str';
-  var got = typeof( _.entityCoerceTo( src, ins ) );
-  var expected = typeof( ins );
-  test.identical( got, expected );
+  // test.case = 'array and string';
+  // var src = [ 1, 2, 3 ];
+  // var ins =  'str';
+  // var got = typeof( _.entityCoerceTo( src, ins ) );
+  // var expected = typeof( ins );
+  // test.identical( got, expected );
 
   if( !Config.debug )
   return;
@@ -4346,7 +4345,7 @@ function entityHasUndef( test )
 
 //
 
-let Self =
+let Proto =
 {
 
   name : 'Tools.l3.Entity',
@@ -4376,7 +4375,7 @@ let Self =
 
 };
 
-Self = wTestSuite( Self );
+let Self = wTestSuite( Proto );
 if( typeof module !== 'undefined' && !module.parent )
 wTester.test( Self.name );
 
