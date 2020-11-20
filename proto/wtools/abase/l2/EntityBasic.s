@@ -34,24 +34,25 @@ let _ObjectHasOwnProperty = Object.hasOwnProperty;
 // entity
 // --
 
-function eachInRange( o )
+// function eachInRange( o )
+function eachInInterval( o )
 {
 
   if( _.arrayIs( o ) )
-  o = { range : o };
+  o = { interval : o };
 
-  _.routineOptions( eachInRange, o );
-  if( _.numberIs( o.range ) )
-  o.range = [ 0, o.range ];
+  _.routineOptions( eachInInterval, o );
+  if( _.numberIs( o.interval ) )
+  o.interval = [ 0, o.interval ];
 
   _.assert( arguments.length === 1, 'Expects single argument' );
-  _.assert( o.range.length === 2 );
+  _.assert( o.interval.length === 2 );
   _.assert( o.increment >= 0 );
 
   let increment = o.increment;
-  let range = o.range;
-  let len = _.rangeCountElements( range, o.increment );
-  let value = range[ 0 ];
+  let interval = o.interval;
+  let len = _.rangeCountElements( interval, o.increment );
+  let value = interval[ 0 ];
 
   if( o.estimate )
   {
@@ -62,7 +63,7 @@ function eachInRange( o )
   o.result = new F32x( len );
 
   // if( o.batch === 0 )
-  // o.batch = o.range[ 1 ] - o.range[ 0 ];
+  // o.batch = o.interval[ 1 ] - o.interval[ 0 ];
 
   /* begin */
 
@@ -74,7 +75,7 @@ function eachInRange( o )
 
   /* end */
 
-  if( value > range[ 1 ] )
+  if( value > interval[ 1 ] )
   if( o.onEnd )
   o.onEnd.call( o, o.result );
 
@@ -90,7 +91,7 @@ function eachInRange( o )
   function exec()
   {
 
-    while( value < range[ 1 ] )
+    while( value < interval[ 1 ] )
     {
 
       if( o.onEach )
@@ -106,11 +107,11 @@ function eachInRange( o )
 
 }
 
-eachInRange.defaults =
+eachInInterval.defaults =
 {
   result : null,
   resultIndex : 0,
-  range : null,
+  interval : null,
   onBegin : null,
   onEnd : null,
   onEach : null,
@@ -121,26 +122,27 @@ eachInRange.defaults =
 
 //
 
-function eachInManyRanges( o )
+// function eachInManyRanges( o )
+function eachInManyIntervals( o )
 {
 
   let len = 0;
 
   if( _.arrayIs( o ) )
-  o = { range : o };
+  o = { interval : o };
 
-  _.routineOptions( eachInManyRanges, o );
+  _.routineOptions( eachInManyIntervals, o );
   _.assert( arguments.length === 1, 'Expects single argument' );
-  _.assert( _.arrayIs( o.range ) );
+  _.assert( _.arrayIs( o.interval ) );
 
   /* estimate */
 
-  for( let r = 0 ; r < o.range.length ; r++ )
+  for( let r = 0 ; r < o.interval.length ; r++ )
   {
-    let range = o.range[ r ];
-    if( _.numberIs( o.range ) )
-    range = o.range[ r ] = [ 0, o.range ];
-    len += _.rangeCountElements( range, o.increment );
+    let interval = o.interval[ r ];
+    if( _.numberIs( o.interval ) )
+    interval = o.interval[ r ] = [ 0, o.interval ];
+    len += _.rangeCountElements( interval, o.increment );
   }
 
   if( o.estimate )
@@ -151,11 +153,11 @@ function eachInManyRanges( o )
   if( o.result === null )
   o.result = new F32x( len );
 
-  let ranges = o.range;
+  let ranges = o.interval;
   for( let r = 0 ; r < ranges.length ; r++ )
   {
-    o.range = ranges[ r ];
-    _.eachInRange( o );
+    o.interval = ranges[ r ];
+    _.eachInInterval( o );
   }
 
   /* return */
@@ -167,7 +169,7 @@ function eachInManyRanges( o )
 
 }
 
-eachInManyRanges.defaults = Object.create( eachInRange.defaults )
+eachInManyIntervals.defaults = Object.create( eachInInterval.defaults )
 
 // //
 //
@@ -246,7 +248,7 @@ eachInManyRanges.defaults = Object.create( eachInRange.defaults )
 //
 //   let last = ranges.length-1;
 //
-//   /* adjust range */
+//   /* adjust interval */
 //
 //   function adjustRange( r )
 //   {
@@ -255,7 +257,7 @@ eachInManyRanges.defaults = Object.create( eachInRange.defaults )
 //     ranges[ r ] = [ 0, ranges[ r ] ];
 //
 //     if( !_.longIs( ranges[ r ] ) )
-//     throw _.err( 'Expects range as array :', ranges[ r ] );
+//     throw _.err( 'Expects interval as array :', ranges[ r ] );
 //
 //     _.assert( ranges[ r ].length === 2 );
 //     _.assert( _.numberIs( ranges[ r ][ 0 ] ) );
@@ -438,7 +440,7 @@ eachInManyRanges.defaults = Object.create( eachInRange.defaults )
 //   o.delta = delta;
 //   return o;
 //
-//   /* adjust range */
+//   /* adjust interval */
 //
 //   function adjustRange( r )
 //   {
@@ -447,7 +449,7 @@ eachInManyRanges.defaults = Object.create( eachInRange.defaults )
 //     ranges[ r ] = [ 0, ranges[ r ] ];
 //
 //     if( !_.longIs( ranges[ r ] ) )
-//     throw _.err( 'Expects range as array :', ranges[ r ] );
+//     throw _.err( 'Expects interval as array :', ranges[ r ] );
 //
 //     _.assert( ranges[ r ].length === 2 );
 //     _.assert( _.numberIs( ranges[ r ][ 0 ] ) );
@@ -647,7 +649,7 @@ function eachInMultiRange_pre_( routine, arg )
   o.delta = delta;
   return o;
 
-  /* adjust range */
+  /* adjust interval */
 
   function adjustRange( r )
   {
@@ -656,7 +658,7 @@ function eachInMultiRange_pre_( routine, arg )
     ranges[ r ] = [ 0, ranges[ r ] ];
 
     if( !_.longIs( ranges[ r ] ) )
-    throw _.err( 'Expects range as array :', ranges[ r ] );
+    throw _.err( 'Expects interval as array :', ranges[ r ] );
 
     _.assert( ranges[ r ].length === 2 );
     _.assert( _.numberIs( ranges[ r ][ 0 ] ) );
@@ -1485,8 +1487,8 @@ let Fields =
 let Routines =
 {
 
-  eachInRange,
-  eachInManyRanges,
+  eachInInterval,
+  eachInManyIntervals,
   // eachInMultiRange, /* qqq : light coverage required */
 
   whileInMultiRange_, /* xxx : rename, later */

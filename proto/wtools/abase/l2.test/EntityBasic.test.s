@@ -1490,8 +1490,8 @@ function whileInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ] ] );
-  test.is( got === o.result );
-  test.is( _.routineIs( o.onEach ) );
+  test.true( got === o.result );
+  test.true( _.routineIs( o.onEach ) );
 
   /* */
 
@@ -1507,7 +1507,7 @@ function whileInMultiRange_RangesIsArray( test )
   test.identical( got, expected )
   test.identical( o.result, expected )
   test.identical( o.ranges, [ [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* - */
 
@@ -1585,7 +1585,7 @@ function whileInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -1627,7 +1627,7 @@ function whileInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 3 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -1648,7 +1648,7 @@ function whileInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -1664,7 +1664,7 @@ function whileInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -1680,7 +1680,7 @@ function whileInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   test.close( '2D, ranges as numbers' );
 
@@ -1742,7 +1742,7 @@ function whileInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -1777,7 +1777,7 @@ function whileInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -1811,7 +1811,7 @@ function whileInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 1, 2 ], [ 1, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -1827,7 +1827,7 @@ function whileInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 1, 2 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   test.close( '2D, ranges as arrays' );
 
@@ -1855,7 +1855,7 @@ function whileInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -1871,7 +1871,7 @@ function whileInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -1913,7 +1913,7 @@ function whileInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -1929,7 +1929,7 @@ function whileInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -1966,8 +1966,8 @@ function whileInMultiRange_RangesIsArrayWithDelta( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ] ] );
-  test.is( got === o.result );
-  test.is( _.routineIs( o.onEach ) );
+  test.true( got === o.result );
+  test.true( _.routineIs( o.onEach ) );
 
   /* */
 
@@ -1984,7 +1984,7 @@ function whileInMultiRange_RangesIsArrayWithDelta( test )
   test.identical( got, expected )
   test.identical( o.result, expected )
   test.identical( o.ranges, [ [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* - */
 
@@ -2067,7 +2067,7 @@ function whileInMultiRange_RangesIsArrayWithDelta( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -2111,7 +2111,7 @@ function whileInMultiRange_RangesIsArrayWithDelta( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 3 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -2132,7 +2132,7 @@ function whileInMultiRange_RangesIsArrayWithDelta( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -2149,7 +2149,7 @@ function whileInMultiRange_RangesIsArrayWithDelta( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -2166,7 +2166,7 @@ function whileInMultiRange_RangesIsArrayWithDelta( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   test.close( '2D, ranges as numbers' );
 
@@ -2232,7 +2232,7 @@ function whileInMultiRange_RangesIsArrayWithDelta( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -2269,7 +2269,7 @@ function whileInMultiRange_RangesIsArrayWithDelta( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -2301,7 +2301,7 @@ function whileInMultiRange_RangesIsArrayWithDelta( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 1, 2 ], [ 1, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -2318,7 +2318,7 @@ function whileInMultiRange_RangesIsArrayWithDelta( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 1, 2 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   test.close( '2D, ranges as arrays' );
 
@@ -2345,7 +2345,7 @@ function whileInMultiRange_RangesIsArrayWithDelta( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -2362,7 +2362,7 @@ function whileInMultiRange_RangesIsArrayWithDelta( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -2404,7 +2404,7 @@ function whileInMultiRange_RangesIsArrayWithDelta( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -2421,7 +2421,7 @@ function whileInMultiRange_RangesIsArrayWithDelta( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -2457,8 +2457,8 @@ function whileInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ] ] );
-  test.is( got === o.result );
-  test.is( _.routineIs( o.onEach ) );
+  test.true( got === o.result );
+  test.true( _.routineIs( o.onEach ) );
 
   /* */
 
@@ -2474,7 +2474,7 @@ function whileInMultiRange_RangesIsMap( test )
   test.identical( got, expected )
   test.identical( o.result, expected )
   test.identical( o.ranges, [ [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* - */
 
@@ -2552,7 +2552,7 @@ function whileInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -2594,7 +2594,7 @@ function whileInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 3 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -2615,7 +2615,7 @@ function whileInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -2631,7 +2631,7 @@ function whileInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -2647,7 +2647,7 @@ function whileInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   test.close( '2D, ranges as numbers' );
 
@@ -2709,7 +2709,7 @@ function whileInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -2744,7 +2744,7 @@ function whileInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -2778,7 +2778,7 @@ function whileInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 1, 2 ], [ 1, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -2794,7 +2794,7 @@ function whileInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 1, 2 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   test.close( '2D, ranges as arrays' );
 
@@ -2822,7 +2822,7 @@ function whileInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -2838,7 +2838,7 @@ function whileInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -2880,7 +2880,7 @@ function whileInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -2896,7 +2896,7 @@ function whileInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -2951,8 +2951,8 @@ function eachInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ] ] );
-  test.is( got === o.result );
-  test.is( _.routineIs( o.onEach ) );
+  test.true( got === o.result );
+  test.true( _.routineIs( o.onEach ) );
 
   /* */
 
@@ -2968,7 +2968,7 @@ function eachInMultiRange_RangesIsArray( test )
   test.identical( got, expected )
   test.identical( o.result, expected )
   test.identical( o.ranges, [ [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* - */
 
@@ -3047,7 +3047,7 @@ function eachInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -3089,7 +3089,7 @@ function eachInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 3 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -3110,7 +3110,7 @@ function eachInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -3126,7 +3126,7 @@ function eachInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -3142,7 +3142,7 @@ function eachInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   test.close( '2D, ranges as numbers' );
 
@@ -3209,7 +3209,7 @@ function eachInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -3245,7 +3245,7 @@ function eachInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -3279,7 +3279,7 @@ function eachInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 1, 2 ], [ 1, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -3295,7 +3295,7 @@ function eachInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 1, 2 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   test.close( '2D, ranges as arrays' );
 
@@ -3323,7 +3323,7 @@ function eachInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -3347,7 +3347,7 @@ function eachInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -3389,7 +3389,7 @@ function eachInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -3413,7 +3413,7 @@ function eachInMultiRange_RangesIsArray( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -3448,8 +3448,8 @@ function eachInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ] ] );
-  test.is( got === o.result );
-  test.is( _.routineIs( o.onEach ) );
+  test.true( got === o.result );
+  test.true( _.routineIs( o.onEach ) );
 
   /* */
 
@@ -3465,7 +3465,7 @@ function eachInMultiRange_RangesIsMap( test )
   test.identical( got, expected )
   test.identical( o.result, expected )
   test.identical( o.ranges, [ [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* - */
 
@@ -3544,7 +3544,7 @@ function eachInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -3586,7 +3586,7 @@ function eachInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 3 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -3607,7 +3607,7 @@ function eachInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -3623,7 +3623,7 @@ function eachInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -3639,7 +3639,7 @@ function eachInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   test.close( '2D, ranges as numbers' );
 
@@ -3706,7 +3706,7 @@ function eachInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -3742,7 +3742,7 @@ function eachInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -3776,7 +3776,7 @@ function eachInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 1, 2 ], [ 1, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -3792,7 +3792,7 @@ function eachInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 1, 2 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   test.close( '2D, ranges as arrays' );
 
@@ -3820,7 +3820,7 @@ function eachInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -3844,7 +3844,7 @@ function eachInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -3886,7 +3886,7 @@ function eachInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
@@ -3910,7 +3910,7 @@ function eachInMultiRange_RangesIsMap( test )
   test.identical( got, expected );
   test.identical( o.result, expected );
   test.identical( o.ranges, [ [ 0, 1 ], [ 0, 2 ], [ 0, 3 ], [ 0, 1 ] ] );
-  test.is( got === o.result );
+  test.true( got === o.result );
 
   /* */
 
