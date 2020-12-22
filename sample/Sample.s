@@ -3,5 +3,5 @@ let _ = require( '..' );
 
 /**/
 
-let r = _.eachInRange({ range : [ 3, 10 ] });
+let r = _.eachInInterval({ interval : [ 3, 10 ] });
 console.log( r );
