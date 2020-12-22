@@ -51,7 +51,8 @@ function eachInInterval( o )
 
   let increment = o.increment;
   let interval = o.interval;
-  let len = _.rangeCountElements( interval, o.increment );
+  // let len = _.rangeCountElements( interval, o.increment );
+  let len = _.ointerval.countElements( interval, o.increment );
   let value = interval[ 0 ];
 
   if( o.estimate )
@@ -142,7 +143,8 @@ function eachInManyIntervals( o )
     let interval = o.interval[ r ];
     if( _.numberIs( o.interval ) )
     interval = o.interval[ r ] = [ 0, o.interval ];
-    len += _.rangeCountElements( interval, o.increment );
+    // len += _.rangeCountElements( interval, o.increment );
+    len += _.ointerval.countElements( interval, o.increment );
   }
 
   if( o.estimate )
