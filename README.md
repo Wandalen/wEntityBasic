@@ -8,7 +8,7 @@ Collection of cross-platform routines for processing heterogenous data.
 git clone https://github.com/Wandalen/wEntityBasic
 cd wEntityBasic
 npm install
-node sample/Sample.s
+node sample/trivial/Sample.s
 ```
 
 ## To add to your project
