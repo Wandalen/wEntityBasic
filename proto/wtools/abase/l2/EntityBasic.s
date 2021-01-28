@@ -234,7 +234,7 @@ eachInManyIntervals.defaults = Object.create( eachInInterval.defaults )
 //     // debugger;
 //     // ranges = o.ranges.slice();
 //     // ranges = _.cloneJust( o.ranges ); // xxx
-//     // ranges = _.entityMake();
+//     // ranges = _.entity.make();
 //
 //     _.assert( _.arrayIs( o.ranges ) );
 //     ranges = [];
