@@ -4142,7 +4142,7 @@ function entityCoerceTo( test )
   test.case = 'unknown type';
   test.shouldThrowErrorOfAnyKind( function()
   {
-    _.entityCoerceTo( 1, { a : 1 }  );
+    _.entityCoerceTo( 1, { a : 1 } );
   });
 
 }
