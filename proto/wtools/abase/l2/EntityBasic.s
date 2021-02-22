@@ -190,7 +190,7 @@ function eachInMultiRange_pre_( routine, arg )
   _.assert( _.objectIs( o ) );
   _.assert( _.arrayIs( o.ranges ) || _.objectIs( o.ranges ), 'Expects o.ranges as array or object' )
   _.assert( _.routineIs( o.onEach ), 'Expects o.onEach as routine' )
-  _.assert( !o.delta || _.strType( o.delta ) === _.strType( o.ranges ), 'o.delta must be same type as ranges' );
+  _.assert( !o.delta || _.entity.strType( o.delta ) === _.entity.strType( o.ranges ), 'o.delta must be same type as ranges' );
 
   let delta = _.objectIs( o.delta ) ? [] : null;
   let ranges = [];
@@ -810,7 +810,7 @@ function entityValueWithIndex( src, index )
   {
     return src[ index ];
   }
-  else _.assert( 0, 'unknown kind of argument', _.strType( src ) );
+  else _.assert( 0, 'unknown kind of argument', _.entity.strType( src ) );
 
 }
 
@@ -864,7 +864,7 @@ function entityKeyWithValue( src, value )
   {
     result = src.indexOf( value );
   }
-  else _.assert( 0, 'unknown kind of argument', _.strType( src ) );
+  else _.assert( 0, 'unknown kind of argument', _.entity.strType( src ) );
 
   if( result === -1 )
   result = null;
@@ -942,7 +942,7 @@ function entityCoerceTo( src, ins )
     return _.boolFrom( src );
 
   }
-  else _.assert( 0, 'unknown type to coerce to : ' + _.strType( ins ) );
+  else _.assert( 0, 'unknown type to coerce to : ' + _.entity.strType( ins ) );
 
 }
 
