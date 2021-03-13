@@ -751,12 +751,12 @@ eachInMultiRange_body_.defaults =
 
 //
 
-let whileInMultiRange_ = _.routineUnite( eachInMultiRange_pre_, eachInMultiRange_body_ );
+let whileInMultiRange_ = _.routine.uniteCloning_( eachInMultiRange_pre_, eachInMultiRange_body_ );
 whileInMultiRange_.defaults.breaking = 1;
 
 //
 
-let eachInMultiRange_ = _.routineUnite( eachInMultiRange_pre_, eachInMultiRange_body_ );
+let eachInMultiRange_ = _.routine.uniteCloning_( eachInMultiRange_pre_, eachInMultiRange_body_ );
 eachInMultiRange_.defaults.breaking = 0;
 
 //
