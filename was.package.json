@@ -1,6 +1,6 @@
 {
   "name" : "wentitybasic",
-  "version" : "0.3.205",
+  "version" : "0.3.206",
   "description" : "Collection of cross-platform routines for processing heterogenous data.",
   "author" : "Kostiantyn Wandalen <wanalen@01.school>",
   "license" : "MIT",
