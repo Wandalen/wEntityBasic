@@ -21,14 +21,14 @@ if( typeof module !== 'undefined' )
 
 }
 
-let _global = _global_;
-let _ = _global_.wTools;
-let Self = _global_.wTools;
+const _global = _global_;
+const _ = _global_.wTools;
+const Self = _global_.wTools;
 
-let _ArraySlice = Array.prototype.slice;
-let _FunctionBind = Function.prototype.bind;
-let _ObjectToString = Object.prototype.toString;
-let _ObjectHasOwnProperty = Object.hasOwnProperty;
+const _ArraySlice = Array.prototype.slice;
+const _FunctionBind = Function.prototype.bind;
+const _ObjectToString = Object.prototype.toString;
+const _ObjectHasOwnProperty = Object.hasOwnProperty;
 
 // --
 // entity
