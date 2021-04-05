@@ -77,8 +77,8 @@ path:
       raw: compiled
       content: prime
   npm.proto.entry:
-    - /pro/module/wEntityBasic/proto/wtools/abase/l2/EntityBasic.s
-    - /pro/module/wEntityBasic/proto/node_modules/wentitybasic
+    - proto/wtools/abase/l2/EntityBasic.s
+    - proto/node_modules/wentitybasic
 reflector:
   reflect.proto:
     inherit: predefined.*
