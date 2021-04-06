@@ -1,11 +1,11 @@
 {
   "name" : "wentitybasic",
-  "version" : "0.3.216",
+  "version" : "0.3.217",
   "description" : "Collection of cross-platform routines for processing heterogenous data.",
   "author" : "Kostiantyn Wandalen <wanalen@01.school>",
   "license" : "MIT",
   "main" : "proto/node_modules/wentitybasic",
-  "files" : [ "proto/wtools/abase/l3", "proto/wtools/Tools.s", "out", "proto/node_modules" ],
+  "files" : [ "proto/wtools/abase/l3", "out", "proto/node_modules" ],
   "scripts" : { "test" : "wtest .run 'proto/**' rapidity:-3", "docgen" : "wdocgen proto" },
   "repository" :
   {
