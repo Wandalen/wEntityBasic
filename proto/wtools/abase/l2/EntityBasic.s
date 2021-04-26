@@ -41,7 +41,7 @@ function eachInInterval( o )
   if( _.arrayIs( o ) )
   o = { interval : o };
 
-  _.routineOptions( eachInInterval, o );
+  _.routine.options_( eachInInterval, o );
   if( _.numberIs( o.interval ) )
   o.interval = [ 0, o.interval ];
 
@@ -132,7 +132,7 @@ function eachInManyIntervals( o )
   if( _.arrayIs( o ) )
   o = { interval : o };
 
-  _.routineOptions( eachInManyIntervals, o );
+  _.routine.options_( eachInManyIntervals, o );
   _.assert( arguments.length === 1, 'Expects single argument' );
   _.assert( _.arrayIs( o.interval ) );
 
@@ -185,7 +185,7 @@ function eachInMultiRange_pre_( routine, arg )
     console.log( e );
   }
 
-  _.routineOptions( routine, o );
+  _.routine.options_( routine, o );
   _.assert( arg.length === 1, 'Expects single argument' );
   _.assert( _.objectIs( o ) );
   _.assert( _.arrayIs( o.ranges ) || _.objectIs( o.ranges ), 'Expects o.ranges as array or object' )
@@ -751,12 +751,12 @@ eachInMultiRange_body_.defaults =
 
 //
 
-let whileInMultiRange_ = _.routine.uniteCloning_( eachInMultiRange_pre_, eachInMultiRange_body_ );
+let whileInMultiRange_ = _.routine.uniteCloning_replaceByUnite( eachInMultiRange_pre_, eachInMultiRange_body_ );
 whileInMultiRange_.defaults.breaking = 1;
 
 //
 
-let eachInMultiRange_ = _.routine.uniteCloning_( eachInMultiRange_pre_, eachInMultiRange_body_ );
+let eachInMultiRange_ = _.routine.uniteCloning_replaceByUnite( eachInMultiRange_pre_, eachInMultiRange_body_ );
 eachInMultiRange_.defaults.breaking = 0;
 
 //
@@ -792,7 +792,7 @@ function entityValueWithIndex( src, index )
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
   _.assert( _.numberIs( index ) );
 
-  if( _.arrayLike( src ) )
+  if( _.argumentsArray.like( src ) )
   {
     return src[ index ];
   }
@@ -847,7 +847,7 @@ function entityKeyWithValue( src, value )
 
   _.assert( arguments.length === 2, 'Expects exactly two arguments' );
 
-  if( _.arrayLike( src ) )
+  if( _.argumentsArray.like( src ) )
   {
     result = src.indexOf( value );
   }
@@ -1001,7 +1001,7 @@ function entityHasNan( src )
   {
     return isNaN( src );
   }
-  else if( _.arrayLike( src ) )
+  else if( _.argumentsArray.like( src ) )
   {
     for( let s = 0 ; s < src.length ; s++ )
     if( entityHasNan( src[ s ] ) )
@@ -1054,7 +1054,7 @@ function entityHasUndef( src )
   {
     return true;
   }
-  else if( _.arrayLike( src ) )
+  else if( _.argumentsArray.like( src ) )
   {
     for( let s = 0 ; s < src.length ; s++ )
     if( entityHasUndef( src[ s ] ) )
@@ -1075,18 +1075,10 @@ function entityHasUndef( src )
 }
 
 // --
-// fields
+// declaration
 // --
 
-let Fields =
-{
-}
-
-// --
-// routines
-// --
-
-let Routines =
+let ToolsExtension =
 {
 
   eachInInterval,
@@ -1095,9 +1087,9 @@ let Routines =
   whileInMultiRange_, /* xxx : rename, later */
   eachInMultiRange_,
 
-  entityValueWithIndex, /* dubious */
-  entityKeyWithValue, /* dubious */
-  entityVals,
+  entityValueWithIndex, /* xxx : dubious */
+  entityKeyWithValue, /* xxx :  dubious */
+  entityVals, /* xxx :  dubious */
 
   entityCoerceTo,
   entityFreeze,
@@ -1111,8 +1103,7 @@ let Routines =
 
 //
 
-Object.assign( Self, Routines );
-Object.assign( Self, Fields );
+Object.assign( _, ToolsExtension );
 
 // --
 // export
@@ -1121,4 +1112,4 @@ Object.assign( Self, Fields );
 if( typeof module !== 'undefined' )
 module[ 'exports' ] = Self;
 
-} )( );
+})();
