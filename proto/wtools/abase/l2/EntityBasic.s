@@ -187,20 +187,20 @@ function eachInMultiRange_pre_( routine, arg )
 
   _.routine.options_( routine, o );
   _.assert( arg.length === 1, 'Expects single argument' );
-  _.assert( _.objectIs( o ) );
-  _.assert( _.arrayIs( o.ranges ) || _.objectIs( o.ranges ), 'Expects o.ranges as array or object' )
+  _.assert( _.object.isBasic( o ) );
+  _.assert( _.arrayIs( o.ranges ) || _.object.isBasic( o.ranges ), 'Expects o.ranges as array or object' )
   _.assert( _.routineIs( o.onEach ), 'Expects o.onEach as routine' )
   _.assert( !o.delta || _.entity.strType( o.delta ) === _.entity.strType( o.ranges ), 'o.delta must be same type as ranges' );
 
-  let delta = _.objectIs( o.delta ) ? [] : null;
+  let delta = _.object.isBasic( o.delta ) ? [] : null;
   let ranges = [];
   o.names = null;
 
   /* */
 
-  if( _.objectIs( o.ranges ) )
+  if( _.object.isBasic( o.ranges ) )
   {
-    _.assert( _.objectIs( o.delta ) || !o.delta );
+    _.assert( _.object.isBasic( o.delta ) || !o.delta );
 
     o.names = [];
     let i = 0;
@@ -236,7 +236,7 @@ function eachInMultiRange_pre_( routine, arg )
 
   }
 
-  if( _.objectIs( ranges ) )
+  if( _.object.isBasic( ranges ) )
   {
     for( let r in ranges )
     adjustRange( r );
@@ -796,7 +796,7 @@ function entityValueWithIndex( src, index )
   {
     return src[ index ];
   }
-  else if( _.objectIs( src ) )
+  else if( _.object.isBasic( src ) )
   {
     let i = 0;
     for( let s in src )
@@ -851,7 +851,7 @@ function entityKeyWithValue( src, value )
   {
     result = src.indexOf( value );
   }
-  else if( _.objectIs( src ) )
+  else if( _.object.isBasic( src ) )
   {
     let i = 0;
     for( let s in src )
