@@ -2,12 +2,9 @@ format: outwillfile-2.0
 root:
   - wEntityBasic.out
 consistency:
-  ../.ex.will.yml: &ref_0
-    hash: 7c98bb5691a9c4c6769c5b729a7303d5
-    size: 1741
-  ../.im.will.yml: &ref_1
-    hash: 125700933b8512a7508b86d7bd3a4e03
-    size: 4979
+  ../will.yml: &ref_0
+    hash: 85a0e2a08739d81e0e10a1ca2f9d571b
+    size: 6479
 module:
   wEntityBasic.out:
     about:
@@ -16,18 +13,18 @@ module:
       description: Collection of cross-platform routines for processing heterogenous data.
       enabled: 1
       version: 0.4.0
-      interpreters: &ref_2
+      license: MIT
+      npm.name: wentitybasic
+      author: Kostiantyn Wandalen <wanalen@01.school>
+      keywords: &ref_1
+        - wTools
+      contributors: &ref_2
+        - Kostiantyn Wandalen <wanalen@01.school>
+      interpreters: &ref_3
         - njs >= 10.0.0
         - chrome >= 60.0.0
         - firefox >= 60.0.0
-      keywords: &ref_3
-        - wTools
-      license: MIT
-      author: Kostiantyn Wandalen <wanalen@01.school>
-      contributors: &ref_4
-        - Kostiantyn Wandalen <wanalen@01.school>
-      npm.name: wentitybasic
-      npm.scripts: &ref_5
+      npm.scripts: &ref_4
         test: wtest .run proto/**
         docgen: wdocgen .build proto
     path:
@@ -42,15 +39,11 @@ module:
       module.original.willfiles:
         criterion:
           predefined: 1
-        path:
-          - ../.ex.will.yml
-          - ../.im.will.yml
+        path: ../will.yml
       module.peer.willfiles:
         criterion:
           predefined: 1
-        path:
-          - ../.ex.will.yml
-          - ../.im.will.yml
+        path: ../will.yml
       module.peer.in:
         criterion:
           predefined: 1
@@ -184,7 +177,7 @@ module:
         autoExporting: 0
         enabled: 0
         criterion:
-          debug: 1
+          development: 1
       wTesting:
         path: 'npm:///wTesting'
         autoExporting: 0
@@ -786,8 +779,7 @@ module:
           content: proto
           export: 1
     consistency:
-      ../.ex.will.yml: *ref_0
-      ../.im.will.yml: *ref_1
+      ../will.yml: *ref_0
   ../:
     about:
       name: wEntityBasic
@@ -795,26 +787,22 @@ module:
       description: Collection of cross-platform routines for processing heterogenous data.
       enabled: 1
       version: 0.4.0
-      interpreters: *ref_2
-      keywords: *ref_3
       license: MIT
-      author: Kostiantyn Wandalen <wanalen@01.school>
-      contributors: *ref_4
       npm.name: wentitybasic
-      npm.scripts: *ref_5
+      author: Kostiantyn Wandalen <wanalen@01.school>
+      keywords: *ref_1
+      contributors: *ref_2
+      interpreters: *ref_3
+      npm.scripts: *ref_4
     path:
       module.willfiles:
         criterion:
           predefined: 1
-        path:
-          - .ex.will.yml
-          - .im.will.yml
+        path: will.yml
       module.original.willfiles:
         criterion:
           predefined: 1
-        path:
-          - .ex.will.yml
-          - .im.will.yml
+        path: will.yml
       module.peer.willfiles:
         criterion:
           predefined: 1
@@ -931,7 +919,7 @@ module:
         autoExporting: 0
         enabled: 0
         criterion:
-          debug: 1
+          development: 1
       wTesting:
         path: 'npm:///wTesting'
         autoExporting: 0
@@ -1469,9 +1457,6 @@ module:
           - 'build::release'
           - 'build::npm'
     consistency:
-      ../.ex.will.yml:
-        hash: 7c98bb5691a9c4c6769c5b729a7303d5
-        size: 1741
-      ../.im.will.yml:
-        hash: 125700933b8512a7508b86d7bd3a4e03
-        size: 4979
+      ../will.yml:
+        hash: 85a0e2a08739d81e0e10a1ca2f9d571b
+        size: 6479
