@@ -1,6 +1,6 @@
 {
   "name" : "wentitybasic",
-  "version" : "0.3.231",
+  "version" : "0.3.232",
   "description" : "Collection of cross-platform routines for processing heterogenous data.",
   "author" : "Kostiantyn Wandalen <wanalen@01.school>",
   "license" : "MIT",
@@ -16,7 +16,7 @@
   {
     "url" : "https://github.com/Wandalen/wEntityBasic/issues"
   },
-  "dependencies" : { "wTools" : "delta" },
-  "devDependencies" : { "eslint" : "7.1.0", "wTesting" : "delta" },
+  "dependencies" : { "wTools" : "gamma" },
+  "devDependencies" : { "eslint" : "7.1.0", "wTesting" : "gamma" },
   "keywords" : [ "wTools" ]
 }
