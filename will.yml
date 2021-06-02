@@ -158,6 +158,12 @@ path:
   npm.proto.entry:
     - proto/wtools/abase/l2/EntityBasic.s
     - proto/node_modules/wentitybasic
+  entry:
+    path: 'proto/node_modules/wentitybasic'
+  npm.files:
+    - proto/wtools/abase/l2
+    - proto/node_modules
+    - out
 reflector:
   reflect.proto:
     inherit: predefined.*
