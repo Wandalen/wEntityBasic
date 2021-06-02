@@ -3,8 +3,8 @@ root:
   - wEntityBasic.out
 consistency:
   ../will.yml: &ref_0
-    hash: 85a0e2a08739d81e0e10a1ca2f9d571b
-    size: 6479
+    hash: f784fccecd5e30d3c969c79227fdbed0
+    size: 6608
 module:
   wEntityBasic.out:
     about:
@@ -136,6 +136,13 @@ module:
         path:
           - ../proto/wtools/abase/l2/EntityBasic.s
           - ../proto/node_modules/wentitybasic
+      entry:
+        path: ../proto/node_modules/wentitybasic
+      npm.files:
+        path:
+          - ../proto/wtools/abase/l2
+          - ../proto/node_modules
+          - .
       exported.dir.proto.export:
         criterion:
           generated: 1
@@ -903,6 +910,13 @@ module:
         path:
           - proto/wtools/abase/l2/EntityBasic.s
           - proto/node_modules/wentitybasic
+      entry:
+        path: proto/node_modules/wentitybasic
+      npm.files:
+        path:
+          - proto/wtools/abase/l2
+          - proto/node_modules
+          - out
     submodule:
       wTools:
         path: 'npm:///wTools'
@@ -1458,5 +1472,5 @@ module:
           - 'build::npm'
     consistency:
       ../will.yml:
-        hash: 85a0e2a08739d81e0e10a1ca2f9d571b
-        size: 6479
+        hash: f784fccecd5e30d3c969c79227fdbed0
+        size: 6608
