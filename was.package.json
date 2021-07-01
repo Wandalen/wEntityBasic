@@ -1,22 +1,36 @@
 {
-  "name" : "wentitybasic",
-  "version" : "0.3.236",
-  "description" : "Collection of cross-platform routines for processing heterogenous data.",
-  "author" : "Kostiantyn Wandalen <wanalen@01.school>",
-  "license" : "MIT",
-  "main" : "proto/node_modules/wentitybasic",
-  "files" : [ "proto/wtools/abase/l2", "out", "proto/node_modules", "proto/node_modules/Tools", "proto/node_modules/wentitybasic" ],
-  "scripts" : { "test" : "wtest .run 'proto/**' rapidity:-3", "docgen" : "wdocgen proto" },
-  "repository" :
-  {
-    "type" : "git",
-    "url" : "https://github.com/Wandalen/wEntityBasic.git"
+  "name": "wentitybasic",
+  "version": "0.3.237",
+  "description": "Collection of cross-platform routines for processing heterogenous data.",
+  "author": "Kostiantyn Wandalen <wanalen@01.school>",
+  "license": "MIT",
+  "main": "proto/node_modules/wentitybasic",
+  "files": [
+    "proto/wtools/abase/l2",
+    "out",
+    "proto/node_modules",
+    "proto/node_modules/Tools",
+    "proto/node_modules/wentitybasic"
+  ],
+  "scripts": {
+    "test": "wtest .run 'proto/**' rapidity:-3",
+    "docgen": "wdocgen proto"
   },
-  "bugs" :
-  {
-    "url" : "https://github.com/Wandalen/wEntityBasic/issues"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wandalen/wEntityBasic.git"
   },
-  "dependencies" : { "wTools" : "" },
-  "devDependencies" : { "wTesting" : "", "eslint" : "7.1.0" },
-  "keywords" : [ "wTools" ]
+  "bugs": {
+    "url": "https://github.com/Wandalen/wEntityBasic/issues"
+  },
+  "dependencies": {
+    "wTools": ""
+  },
+  "devDependencies": {
+    "wTesting": "",
+    "eslint": "7.1.0"
+  },
+  "keywords": [
+    "wTools"
+  ]
 }
