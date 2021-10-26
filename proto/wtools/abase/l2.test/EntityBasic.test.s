@@ -2441,6 +2441,8 @@ function whileInMultiRange_RangesIsArrayWithDelta( test )
   test.close( '4D' );
 }
 
+whileInMultiRange_RangesIsArrayWithDelta.timeOut = 10000;
+
 //
 
 function whileInMultiRange_RangesIsMap( test )
