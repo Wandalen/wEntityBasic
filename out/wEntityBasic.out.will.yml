@@ -3,8 +3,8 @@ root:
   - wEntityBasic.out
 consistency:
   ../will.yml: &ref_0
-    hash: 230648756a83f13585b7c25ca540e063
-    size: 6465
+    hash: 65b5a7e02a2636d3b7ca5686359d1421
+    size: 6473
 module:
   wEntityBasic.out:
     about:
@@ -1454,5 +1454,5 @@ module:
           - 'build::npm'
     consistency:
       ../will.yml:
-        hash: 230648756a83f13585b7c25ca540e063
-        size: 6465
+        hash: 65b5a7e02a2636d3b7ca5686359d1421
+        size: 6473
