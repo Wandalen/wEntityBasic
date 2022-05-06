@@ -1,6 +1,6 @@
 {
   "name": "wentitybasic",
-  "version": "0.3.270",
+  "version": "0.3.271",
   "description": "Collection of cross-platform routines for processing heterogenous data.",
   "author": "Kostiantyn Wandalen <wandalen@obox.systems>",
   "license": "MIT",
